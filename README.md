@@ -18,7 +18,7 @@ Linux customisation files
 
   - vim
 
-  ```bash
-  ~/
-  ```
+    ```bash
+    ~/
+    ```
 
