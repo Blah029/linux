@@ -1,0 +1,25 @@
+" File type settings
+filetype on
+filetype plugin on
+filetype indent on
+
+" Turn syntax highlighting on
+syntax on
+
+" Show line number
+set number
+
+" Replace TAB with 4 spaces
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Show column indicator 
+"set colorcolumn=80
+
+" Disable line wrap
+"set nowrap
+
+" Colour
+"highlight LineNr ctermfg=darkgrey
+"highlight NonText ctermfg=darkgrey
