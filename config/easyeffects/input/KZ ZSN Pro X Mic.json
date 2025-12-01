@@ -1,0 +1,52 @@
+{
+    "input": {
+        "blocklist": [],
+        "filter#0": {
+            "balance": 0.0,
+            "bypass": false,
+            "equal-mode": "IIR",
+            "frequency": 100.0,
+            "gain": -20.0,
+            "input-gain": 0.0,
+            "mode": "RLC (BT)",
+            "output-gain": 0.0,
+            "quality": 0.0,
+            "slope": "x1",
+            "type": "Low-shelf",
+            "width": 4.0
+        },
+        "filter#1": {
+            "balance": 0.0,
+            "bypass": false,
+            "equal-mode": "IIR",
+            "frequency": 10000.0,
+            "gain": -20.0,
+            "input-gain": 0.0,
+            "mode": "RLC (BT)",
+            "output-gain": 0.0,
+            "quality": 0.0,
+            "slope": "x1",
+            "type": "High-shelf",
+            "width": 4.0
+        },
+        "plugins_order": [
+            "filter#0",
+            "filter#1",
+            "speex#0"
+        ],
+        "speex#0": {
+            "bypass": false,
+            "enable-agc": false,
+            "enable-denoise": true,
+            "enable-dereverb": true,
+            "input-gain": 0.0,
+            "noise-suppression": -70,
+            "output-gain": 0.0,
+            "vad": {
+                "enable": false,
+                "probability-continue": 90,
+                "probability-start": 95
+            }
+        }
+    }
+}

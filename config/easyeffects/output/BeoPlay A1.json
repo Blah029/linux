@@ -1,0 +1,31 @@
+{
+    "output": {
+        "blocklist": [],
+        "convolver#0": {
+            "autogain": false,
+            "bypass": false,
+            "input-gain": 0.0,
+            "ir-width": 100,
+            "kernel-name": "BeoPlay A1 (Corrected) minimum phase 48000Hz",
+            "output-gain": -8.0
+        },
+        "filter#0": {
+            "balance": 0.0,
+            "bypass": true,
+            "equal-mode": "IIR",
+            "frequency": 64.0,
+            "gain": -20.0,
+            "input-gain": 8.0,
+            "mode": "RLC (BT)",
+            "output-gain": 0.0,
+            "quality": 0.0,
+            "slope": "x1",
+            "type": "Low-shelf",
+            "width": 4.0
+        },
+        "plugins_order": [
+            "convolver#0",
+            "filter#0"
+        ]
+    }
+}
