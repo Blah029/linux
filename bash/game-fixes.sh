@@ -40,8 +40,8 @@ parse_arguments() {
 
 main() {
     sudo chmod o+r /sys/class/powercap/intel-rapl\:0/energy_uj
-    w-metadata -n settings 0 clock.force-rate 48000
-    w-metadata -n settings 0 clock.force-quantum 500
+    pw-metadata -n settings 0 clock.force-rate 48000
+    pw-metadata -n settings 0 clock.force-quantum 500
 }
 
 
