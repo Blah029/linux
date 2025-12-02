@@ -3,7 +3,7 @@
 
 usage() {
     cat << EOF
-Expose CPU power draw to MangoHud
+Expose CPU power draw to MangoHud, fix Wine+PipeWire audio popping
 Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
@@ -40,6 +40,8 @@ parse_arguments() {
 
 main() {
     sudo chmod o+r /sys/class/powercap/intel-rapl\:0/energy_uj
+    w-metadata -n settings 0 clock.force-rate 48000
+    pw-metadata -n settings 0 clock.force-quantum 500
 }
 
 
