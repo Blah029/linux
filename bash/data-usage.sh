@@ -98,7 +98,8 @@ main() {
     # Process hourly data
     jq -r '
         def to_human:
-            if . >= 1073741824 then {value: ((. / 1073741824 * 100 | floor) / 100), unit: "GB"}
+            if . == null then {value: 0, unit: "KB"}
+            elif . >= 1073741824 then {value: ((. / 1073741824 * 100 | floor) / 100), unit: "GB"}
             elif . >= 1048576 then {value: ((. / 1048576 * 100 | floor) / 100), unit: "MB"}
             else {value: ((. / 1024 * 100 | floor) / 100), unit: "KB"}
             end;
