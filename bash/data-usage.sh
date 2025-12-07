@@ -16,7 +16,7 @@ Options:
     -m, --month <month>         Filter by month. Default current month
     -s, --start-hour <hour>     Filter by starting hour. Default 7
     -e, --end-hour <hour>       Filter by ending hour. Default 23
-    -j, --json-raw              Path to vnstat output. Default ~/temp/vnstat_raw.json
+    -j, --json-raw <path>       Path to vnstat output. Default ~/temp/vnstat_raw.json
 EOF
     exit
 }
