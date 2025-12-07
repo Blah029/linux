@@ -3,15 +3,15 @@
 
 usage() {
     cat << EOF
-Log vnstat daily data within specified hours.
+Filter vnstat daily usage data within specified hours.
 Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
     -h, --help                  Print help and exit
-    -i, --interface <interface> Network interface. Defalut 1
+    -i, --interface [interface] Network interface. Defalut 1
                                     0 - eno1 (ethernet)
                                     1 - wlp5s0 (wifi)
-                                    <empty> - all interfaces
+                                    empty - all interfaces
     -y, --year <year>           Filter by year. Default current year
     -m, --month <month>         Filter by month. Default current month
     -s, --start-hour <hour>     Filter by starting hour. Default 7
