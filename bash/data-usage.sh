@@ -1,6 +1,5 @@
 
 #!/usr/bin/env bash
-# Work in progress
 
 usage() {
     cat << EOF
@@ -65,10 +64,6 @@ parse_arguments() {
                 ;;
             --json-raw)
                 json_raw="${2-}"
-                shift
-                ;;
-            --json-processed)
-                json_processed="${2-}"
                 shift
                 ;;
             # Exit if an unexpected option is passed
