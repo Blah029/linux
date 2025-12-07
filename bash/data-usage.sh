@@ -138,10 +138,12 @@ main() {
             )
         }
         | "Interface:     \(.name)",
+        "",
         (
             .daily[]
             | "\(.date.year)-\(.date.month | tostring | if length == 1 then "0" + . else . end)-\(.date.day | tostring | if length == 1 then "0" + . else . end):    RX: \(format_value(.rx)) | TX: \(format_value(.tx)) | Total: \(format_value(.total))"
         ),
+        "",
         "Monthly Total: RX: \(format_value(.monthly.rx)) | TX: \(format_value(.monthly.tx)) | Total: \(format_value(.monthly.total))"
     ' ~/temp/vnstat_raw.json
 }
