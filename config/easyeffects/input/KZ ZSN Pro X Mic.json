@@ -6,13 +6,13 @@
             "bypass": false,
             "equal-mode": "IIR",
             "frequency": 100.0,
-            "gain": -20.0,
+            "gain": 0.0,
             "input-gain": 0.0,
             "mode": "RLC (BT)",
             "output-gain": 0.0,
             "quality": 0.0,
             "slope": "x1",
-            "type": "Low-shelf",
+            "type": "High-pass",
             "width": 4.0
         },
         "filter#1": {
@@ -20,13 +20,13 @@
             "bypass": false,
             "equal-mode": "IIR",
             "frequency": 10000.0,
-            "gain": -20.0,
+            "gain": 0.0,
             "input-gain": 0.0,
             "mode": "RLC (BT)",
             "output-gain": 0.0,
             "quality": 0.0,
             "slope": "x1",
-            "type": "High-shelf",
+            "type": "Low-pass",
             "width": 4.0
         },
         "plugins_order": [
@@ -36,14 +36,14 @@
         ],
         "speex#0": {
             "bypass": false,
-            "enable-agc": false,
+            "enable-agc": true,
             "enable-denoise": true,
             "enable-dereverb": true,
-            "input-gain": 0.0,
-            "noise-suppression": -70,
-            "output-gain": 0.0,
+            "input-gain": -5.0,
+            "noise-suppression": -100,
+            "output-gain": 5.0,
             "vad": {
-                "enable": false,
+                "enable": true,
                 "probability-continue": 90,
                 "probability-start": 95
             }
