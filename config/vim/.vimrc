@@ -18,9 +18,10 @@ set expandtab
 " Show column indicator 
 "set colorcolumn=80
 
-" Disable line wrap
-"set nowrap
-
 " Colour
 "highlight LineNr ctermfg=darkgrey
 "highlight NonText ctermfg=darkgrey
+
+" Disable line wrap
+"set nowrap
+
