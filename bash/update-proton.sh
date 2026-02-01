@@ -3,13 +3,14 @@
 
 usage() {
     cat << EOF 
-Download and install latest version of Proton-GE from https://github.com/GloriousEggroll/proton-ge-custom
-Usage: $(basename "${BASH_SOURCE[0]}") [options]
+Download and install latest version of custom proton
+Usage: $(basename "${BASH_SOURCE[0]}") [options] repo
 
 Options:
     -h, --help                  Print help and exit
-    -g, --protonge              Updtae Proton-GE
-    -d, --dwproton <version>    Update DW-Proton. Example dwproton-10.0-14
+Repos:
+    -g, --protonge              Updtae Proton-GE (https://github.com/GloriousEggroll/proton-ge-custom)
+    -d, --dwproton <version>    Update DW-Proton. Example dwproton-10.0-14 (https://dawn.wine/dawn-winery/dwproton)
 EOF
     exit
 }
@@ -24,7 +25,7 @@ die() {
 
 parse_arguments() {
     # Defaults
-    repo="all"
+    repo=0
     version=0
 
     # Parse flags and named parameters
@@ -142,11 +143,7 @@ main() {
             echo "Updating DW-Proton"
             update_dwproton
             ;;
-        "all")
-            echo "Updating all"
-            update_proton_ge
-            update_dwproton
-            ;;
+        0) die "Specify a repo"
     esac
 }
 
