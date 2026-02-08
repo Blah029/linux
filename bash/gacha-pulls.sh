@@ -55,20 +55,21 @@ parse_arguments() {
 
 
 copy_endfield() {
-    p="$game_path/$game/drive_c/users/$USER/AppData/LocalLow/Gryphline/Endfield/sdklogs/HGWebview.log"
-    if [ -f "$p" ]; then
-        token=$(grep -oP 'u8_token=\K[^&\s]+' "$p" | head -n1)
+    log_path="$game_path/$game/drive_c/users/$USER/AppData/LocalLow/Gryphline/Endfield/sdklogs/HGWebview.log"
+    if [ -f "$log_path" ]; then
+        token=$(grep -oP 'https://[^\s"]+?\.gryphline\.com/[^\s"]+?token[^\s"]+?server[^\s"]+' "$log_path" | head -n1)
         if [ -n "$token" ]; then
-            # Copy to clipboard (X11 vs Wayland)
-            if command -v wl-copy >/dev/null 2>&1; then
-                echo -n "$token" | wl-copy
-            elif command -v xclip >/dev/null 2>&1; then
+            if command -v xclip >/dev/null 2>&1; then
                 echo -n "$token" | xclip -selection clipboard
             else
                 echo "Clipboard tool not found. Token: $token"
             fi
             echo "Token copied"
+        else
+            echo "No matching token found"
         fi
+    else
+        echo "Log file not found at $log_path"
     fi
 }
 
