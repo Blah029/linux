@@ -4,16 +4,16 @@ Linux customisation files
 
 - bash - Shell scripts
 - config - Configuration files
+  - easyeffects
+
+    ```bash
+    ~/.config/easyeffects/
+    ```
+
   - mangohud
 
     ```bash
     ~/.config/MangoHud/
-    ```
-
-  - mpv
-
-    ```bash
-    ~/.config/mpv/
     ```
 
   - vim
@@ -22,3 +22,8 @@ Linux customisation files
     ~/
     ```
 
+  - vnstat
+
+    ```bash
+    /etc/
+    ```

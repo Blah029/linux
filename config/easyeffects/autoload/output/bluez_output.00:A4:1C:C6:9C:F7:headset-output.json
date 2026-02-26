@@ -1,5 +1,5 @@
 {
-    "device": "bluez_output.00_A4_1C_C6_9C_F7.1",
+    "device": "bluez_output.00:A4:1C:C6:9C:F7",
     "device-description": "JBL Tune 720BT",
     "device-profile": "headset-output",
     "preset-name": "JBL Tune 720BT"
