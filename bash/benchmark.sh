@@ -60,7 +60,7 @@ main() {
     pids=()  # array to store PIDs
 
     $test_cpu && stress-ng --matrix 0 -t "$cpu_time" --tz & pids+=($!)
-    $test_gpu && mangohud "/usr/local/bin/FurMark_2.9.0.0_linux64/FurMark_linux64/FurMark_GUI" & pids+=($!)
+    $test_gpu && mangohud ~/"applications/FurMark_linux64/FurMark_GUI" & pids+=($!)
 
     # Wait for all launched processes
     if [ ${#pids[@]} -gt 0 ]; then
