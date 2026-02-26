@@ -43,7 +43,7 @@
             "noise-suppression": -100,
             "output-gain": 12.0,
             "vad": {
-                "enable": true,
+                "enable": false,
                 "probability-continue": 90,
                 "probability-start": 95
             }
