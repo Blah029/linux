@@ -6,11 +6,26 @@
             "bypass": false,
             "input-gain": 0.0,
             "ir-width": 100,
-            "kernel-name": "JBL Tune 720BT (Filk) minimum phase 48000Hz",
+            "kernel-name": "JBL Tune 720BT (Filk S1) minimum phase 48000Hz",
             "output-gain": 6.0
         },
+        "filter#0": {
+            "balance": 0.0,
+            "bypass": false,
+            "equal-mode": "IIR",
+            "frequency": 4754.0,
+            "gain": -2.0,
+            "input-gain": 0.0,
+            "mode": "RLC (BT)",
+            "output-gain": 0.0,
+            "quality": 3.0,
+            "slope": "x1",
+            "type": "Bell",
+            "width": 4.0
+        },
         "plugins_order": [
-            "convolver#0"
+            "convolver#0",
+            "filter#0"
         ]
     }
 }

@@ -9,8 +9,23 @@
             "kernel-name": "KZ ZSN Pro X (Corrected) minimum phase 48000Hz",
             "output-gain": 4.0
         },
+        "filter#0": {
+            "balance": 0.0,
+            "bypass": false,
+            "equal-mode": "IIR",
+            "frequency": 800.0,
+            "gain": -5.0,
+            "input-gain": 0.0,
+            "mode": "RLC (BT)",
+            "output-gain": 1.0,
+            "quality": 0.7,
+            "slope": "x1",
+            "type": "Bell",
+            "width": 4.0
+        },
         "plugins_order": [
-            "convolver#0"
+            "convolver#0",
+            "filter#0"
         ]
     }
 }
