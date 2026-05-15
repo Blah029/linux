@@ -15,6 +15,10 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" Ignore case unless capitalised
+set ignorecase
+set smartcase
+
 " Show column indicator 
 "set colorcolumn=80
 
