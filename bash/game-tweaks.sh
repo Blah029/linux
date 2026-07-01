@@ -44,8 +44,8 @@ main() {
     echo "Fixing sample rate and buffer quantum..."
     pw-metadata -n settings 0 clock.force-rate 48000
     pw-metadata -n settings 0 clock.force-quantum 500
-    echo "Decreasing swappiness..."
-    sudo sysctl vm.swappiness=10
+    # echo "Decreasing swappiness..."
+    # sudo sysctl vm.swappiness=10
 }
 
 
