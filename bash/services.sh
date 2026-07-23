@@ -3,13 +3,14 @@
 
 usage() {
     cat << EOF
-Description
-Usage: $(basename "${BASH_SOURCE[0]}") [options] parameter
+Manage background homelab services
+Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
-    -h, --help                  Print help and exit
-    -f, --flag                  Example flag
-    -p, --parameter <parameter> Example named parameter
+    -h, --help      Print help and exit
+    -s, --start     Start
+    -e, --stop      Stop 
+    -r, --restart   Restart
 EOF
     exit
 }
