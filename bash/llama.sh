@@ -24,7 +24,7 @@ die() {
 
 parse_arguments() {
     verbose=false
-    model="E4B"
+    model="12B"
     quantisation="4"
     gpu_offload="all"
     
@@ -84,9 +84,10 @@ main() {
         --context-shift \
         --parallel 1 \
         --jinja \
-        --host localhost \
+        --host 0.0.0.0 \
         --port 8080 \
-        --props --metrics
+        --props \
+        --metrics
 }
 
 
