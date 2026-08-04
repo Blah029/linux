@@ -69,8 +69,8 @@ parse_arguments() {
 
 main() {
     llama serve \
-        -m "/home/ransika/applications/llama-cpp/gemma-4-${model}-it-Q${quantisation}_0.gguf" \
-        -md "/home/ransika/applications/llama-cpp/mtp-gemma-4-${model}-it-Q${quantisation}_0.gguf" \
+        -m "applications/llama-cpp/gemma-4-${model}-it-Q${quantisation}_0.gguf" \
+        -md "applications/llama-cpp/mtp-gemma-4-${model}-it-Q${quantisation}_0.gguf" \
         --spec-type draft-mtp \
         --spec-draft-n-max 3 \
         --spec-draft-ngl all \
