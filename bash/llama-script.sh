@@ -68,16 +68,16 @@ parse_arguments() {
 
 
 main() {
-    model_path="applications/llama-cpp/gemma-4-${model}-it-Q${quantisation}_0.gguf"
-    mtp_path="applications/llama-cpp/mtp-gemma-4-${model}-it-Q${quantisation}_0.gguf"
+    model_path="applications/llama-cpp/models/gemma-4-${model}-it-Q${quantisation}_0.gguf"
+    mtp_path="applications/llama-cpp/models/mtp-gemma-4-${model}-it-Q${quantisation}_0.gguf"
     llama serve \
         -m ${model_path} \
         -md ${mtp_path} \
         --spec-type draft-mtp \
         -t 12 \
         -c 0 \
-        -b 16384 \
-        -ub 8192 \
+        -b 8192 \
+        -ub 4096 \
         -fa on \
         -ctk q8_0 \
         -ctv q8_0 \
