@@ -88,8 +88,8 @@ main() {
         --spec-type draft-mtp \
         -t 12 \
         -c 0 \
-        -b 256 \
-        -ub 128 \
+        -b 1024 \
+        -ub 512 \
         -fa on \
         -ctk q8_0 \
         -ctv q8_0 \
@@ -108,6 +108,9 @@ main() {
     # Min. batch size for full gpu utilisation
     #   -b 256 \
     #   -ub 128 \
+    # Min. batch size for parsing large pdfs as images
+    #   -b 1024 \
+    #   -ub 512 \
     # Max. batch size for parsing large pdfs as images 
     #   -b 2048 \
     #   -ub 1024 \
