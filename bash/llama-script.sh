@@ -36,9 +36,9 @@ parse_arguments() {
     # Defaults
     verbosity=3
     model="gemma-4-26B-A4B-it-Q4_0.gguf"
-    draft_model="dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
+    draft_model="mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
     multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-    speculative_type="draft-dflash"
+    speculative_type="draft-mtp"
     gpu_offload="all"
     executable="llama serve"
     
