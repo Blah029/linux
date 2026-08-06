@@ -19,7 +19,6 @@ Options:
     --md <path>                 Multitoken prediction head in GGUF format. Default mtp-gemma-4-12B-it-Q4_0.gguf
     --mm <path>                 Multimedia projector in GGUF format. Default mmproj-gemma-4-12B-it-Q8_0.gguf"
     --st <type>                 Speculative decoding type
-    -o, --offload <layers>      Numebr of layers to offload to gpu. Default all
 EOF
     exit
 }
@@ -39,7 +38,6 @@ parse_arguments() {
     draft_model="mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
     multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
     speculative_type="draft-mtp"
-    gpu_offload="all"
     executable="llama serve"
     
     # Parse flags and named parameters
@@ -66,10 +64,6 @@ parse_arguments() {
                 speculative_type="${2-}"
                 shift
                 ;;
-            -o | --offload)
-                offload="${2-}"
-                shift
-                ;;
             # Exit if an unexpected option is passed
             -?*) die "Unexpected option: $1";;
             # If no matches, break while loop to parse positional parameters
@@ -85,11 +79,7 @@ parse_arguments() {
     [[ -z "${model-}" ]] && die "Missing required parameter: --model"
     [[ -z "${draft_model-}" ]] && die "Missing required parameter: --md"
     [[ -z "${multimedia_projector-}" ]] && die "Missing required parameter: --mm"
-    [[ -z "${speculative_type-}" ]] && die "Missing required parameter: --mm"
-    [[ -z "${gpu_offload-}" ]] && die "Missing required parameter: --offload"
-    # Check for no. of positional parameters
-    [[ ${#args[@]} -lt 0 ]] && die "Missing positional parameters. Given "${#args[@]}", expected 1"
-    [[ ${#args[@]} -gt 0 ]] && die "Too many positional parameters. Given "${#args[@]}", expected 1"    
+    [[ -z "${speculative_type-}" ]] && die "Missing required parameter: --st"
 }
 
 
@@ -109,9 +99,9 @@ autoload() {
             ;;  
         "26b-d")
             model="gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="draft-gemma-4-26B-A4B-it-Q8_0.gguf"
+            draft_model="dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
             multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-            speculative_type="draft-mtp"
+            speculative_type="draft-dflash"
             ;;  
     esac
 }
