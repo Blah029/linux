@@ -41,11 +41,11 @@ parse_arguments() {
 main() {
     echo -e "\nEnabling CPU power monitoring..."
     sudo chmod o+r /sys/class/powercap/intel-rapl\:0/energy_uj
-    echo -e "\nFixing sample rate and buffer quantum..."
-    pw-metadata -n settings 0 clock.force-rate 48000
-    pw-metadata -n settings 0 clock.force-quantum 500
-    # echo -e "\nDecreasing swappiness..."
-    # sudo sysctl vm.swappiness=10
+    #echo -e "\nFixing sample rate and buffer quantum..."
+    #pw-metadata -n settings 0 clock.force-rate 48000
+    #pw-metadata -n settings 0 clock.force-quantum 500
+    #echo -e "\nDecreasing swappiness..."
+    #sudo sysctl vm.swappiness=10
 }
 
 
