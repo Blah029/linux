@@ -1,0 +1,14 @@
+services:
+    anythingllm:
+        ports:
+            - 3001:3001
+        cap_add:
+            - SYS_ADMIN
+        container_name: anythingllm
+        volumes:
+            - $HOME/applications/anythingllm:/app/server/storage
+            - $HOME/applications/anythingllm/.env:/app/server/.env
+        environment:
+            - STORAGE_DIR=/app/server/storage
+        image: mintplexlabs/anythingllm
+        restart: unless-stopped

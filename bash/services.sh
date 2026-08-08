@@ -57,6 +57,9 @@ start_services() {
     # ssh
     echo -e "\nStarting ssh service..."
     sudo systemctl start sshd
+    # Docker
+    echo -e "\nStarting docker service..."
+    sudo systemctl start docker
 }
 
 
@@ -70,8 +73,11 @@ stop_services() {
     echo -e "\nStopping wireguard service..."
     sudo systemctl stop wg-quick@wg0
     # ssh
-    echo -e "\nStopping ssh service...\n"
+    echo -e "\nStopping ssh service..."
     sudo systemctl stop sshd
+    # Docker
+    echo -e "\nStopping docker service..."
+    sudo systemctl stop docker
 }
 
 
