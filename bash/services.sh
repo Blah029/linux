@@ -47,37 +47,44 @@ parse_arguments() {
 }
 
 
+services=(
+    "docker.socket"
+    "docker"
+    "jellyfin"
+    "playit"
+    "sshd"
+    "wg-quick@wg0"
+)
+
+
 start_services() {
-    # Jellyfin
-    echo -e  "\nStarting jellyfin service..."
-    sudo systemctl start jellyfin
-    # Wireguard
-    echo -e "\nStarting wireguard service..."
-    sudo systemctl start wg-quick@wg0
-    # ssh
-    echo -e "\nStarting ssh service..."
-    sudo systemctl start sshd
-    # Docker
-    echo -e "\nStarting docker service..."
-    sudo systemctl start docker
+    # Batch start services
+    echo -e "Starting processes\n" 
+    for service in ${services[@]}; do
+        echo -e "${service}"
+        sudo systemctl start ${service}
+    done
+    # Start other processes
+    echo -e "\nRunning post start-up commands\n"
+    echo "Docker - Starting AnythingLLM provider processes"
+    nohup ptyxis -- bash -c "llama-script.sh -a" > "$HOME/temp/nohup-gemma.txt" 2>&1 &
 }
 
 
 stop_services() {
-    # Jellyfin
-    echo -e "\nStopping jellyfin service..."
-    sudo systemctl stop jellyfin
-    # Wireguard
-    echo -e "\nBringing wireguard interface down..."
+    # Stop other processs
+    echo -e "Preparing to stop services\n"
+    echo "Docker - Killing AnythingLLM provider processes"
+    pkill llama
+    pkill qdrant
+    echo "Wireguard - Bringing interface down..."
     sudo wg-quick down wg0
-    echo -e "\nStopping wireguard service..."
-    sudo systemctl stop wg-quick@wg0
-    # ssh
-    echo -e "\nStopping ssh service..."
-    sudo systemctl stop sshd
-    # Docker
-    echo -e "\nStopping docker service..."
-    sudo systemctl stop docker
+    # Batch stop services
+    echo -e "\nStopping services\n"
+    for service in ${services[@]}; do
+        echo "${service}"
+        sudo systemctl stop ${service}
+    done
 }
 
 

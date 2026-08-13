@@ -24,7 +24,7 @@ die() {
 
 parse_arguments() {
     # Defaults
-    parent_dir=~/"Videos/OBS/AMD - Games"
+    parent_dir="$HOME/Videos/OBS/AMD - Games"
     tracks=0
 
     # Parse flags and named parameters
