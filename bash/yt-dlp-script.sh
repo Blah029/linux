@@ -29,7 +29,7 @@ die() {
 
 parse_arguments() {
     # Defaults
-    out_path="~/Downloads/yt-dlp-downloads"
+    out_path="$HOME//Downloads/yt-dlp-downloads"
     mode=list
     
     # Parse flags and named parameters

@@ -36,7 +36,7 @@ parse_arguments() {
     month=$(date +%-m)
     start_hour=7
     end_hour=23
-    json_raw=~/"temp/vnstat_raw.json"
+    json_raw="$HOME/temp/vnstat_raw.json"
     
     # Parse flags and named parameters
     while :; do
@@ -141,7 +141,7 @@ main() {
         ),
         "",
         "Monthly Total: RX: \(format_value(.monthly.rx)) | TX: \(format_value(.monthly.tx)) | Total: \(format_value(.monthly.total))"
-    ' ~/temp/vnstat_raw.json
+    ' $HOME/temp/vnstat_raw.json
 }
 
 

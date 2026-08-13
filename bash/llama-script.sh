@@ -20,7 +20,7 @@ Options:
     --md <file>                 Multitoken prediction head in GGUF format. Default mtp-gemma-4-12B-it-Q4_0.gguf
     --mm <file>                 Multimedia projector in GGUF format. Default mmproj-gemma-4-12B-it-Q8_0.gguf"
     --st <type>                 Speculative decoding type
-    --em <file>                 Vector embedding model in GGUF format. Default nomic-embed-text-v1.5.f16.gguf
+    --em <file>                 Vector embedding model in GGUF format. Default nomic-embed-text-v1.f16.gguf
 EOF
     exit
 }
@@ -41,15 +41,15 @@ parse_arguments() {
     draft_model="mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
     multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
     speculative_type="draft-mtp"
-    embedding_model="nomic-embed-text-v1.5.f16.gguf"
+    embedding_model="nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
     while :; do
         case "${1-}" in
             -h | --help) usage;;
             -v | --verbose) verbosity=5;;
-            -g | --github) executable="applications/llama-cpp/binary/vulkan/llama-server";;
-            -r | --rocm) executable="applications/llama-cpp/binary/rocm/llama-server";;
+            -g | --github) executable="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
+            -r | --rocm) executable="$HOME/applications/llama-cpp/binary/rocm/llama-server";;
             -a | --all) tools;;
             -m | --model)
                 model="${2-}"
@@ -93,7 +93,7 @@ parse_arguments() {
 
 tools() {
     # Embedding model
-    embedding_model_path="applications/llama-cpp/models/nomic/${embedding_model}"
+    embedding_model_path="$HOME/applications/llama-cpp/models/nomic/${embedding_model}"
     nohup ptyxis -- bash -c "${executable} \
         -m ${embedding_model_path} \
         --rope-scaling yarn \
@@ -104,10 +104,10 @@ tools() {
         -ngl all \
         --embedding \
         --host 0.0.0.0 \
-        --port 8081" &
+        --port 8081" > "$HOME/temp/nohup-nomic.txt" 2>&1 &
     # Vector database
-    nohup ptyxis -- bash -c "cd applications/qdrant \
-        && ./qdrant" &
+    nohup ptyxis -- bash -c "cd $HOME/applications/qdrant \
+        && ./qdrant" > "$HOME/temp/nohup-qdrant.txt" 2>&1 &
 }
 
 
@@ -136,9 +136,9 @@ autoload() {
 
 
 main() {
-    model_path="applications/llama-cpp/models/gemma/${model}"
-    draft_model_path="applications/llama-cpp/models/gemma/${draft_model}"
-    multimedia_projector_path="applications/llama-cpp/models/gemma/${multimedia_projector}"
+    model_path="$HOME/applications/llama-cpp/models/gemma/${model}"
+    draft_model_path="$HOME/applications/llama-cpp/models/gemma/${draft_model}"
+    multimedia_projector_path="$HOME/applications/llama-cpp/models/gemma/${multimedia_projector}"
     ${executable} \
         -m ${model_path} \
         -md ${draft_model_path} \
