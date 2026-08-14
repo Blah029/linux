@@ -52,8 +52,8 @@ services=(
     "docker"
     "jellyfin"
     "playit"
-    "sshd"
-    "wg-quick@wg0"
+    #"sshd"
+    #"wg-quick@wg0"
 )
 
 
@@ -64,8 +64,10 @@ start_services() {
         echo -e "${service}"
         sudo systemctl start ${service}
     done
+    
     # Start other processes
     echo -e "\nRunning post start-up commands\n"
+    # Docker - AythingLLM
     echo "Docker - Starting AnythingLLM provider processes"
     nohup ptyxis -- bash -c "llama-script.sh -a" > "$HOME/temp/nohup-gemma.txt" 2>&1 &
 }
@@ -74,11 +76,14 @@ start_services() {
 stop_services() {
     # Stop other processs
     echo -e "Preparing to stop services\n"
+    # Docker - AnythingLLM
     echo "Docker - Killing AnythingLLM provider processes"
     pkill llama
     pkill qdrant
-    echo "Wireguard - Bringing interface down..."
-    sudo wg-quick down wg0
+    # Wireguard
+    #echo "Wireguard - Bringing interface down"
+    #sudo wg-quick down wg0
+    
     # Batch stop services
     echo -e "\nStopping services\n"
     for service in ${services[@]}; do
