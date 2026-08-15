@@ -3,10 +3,18 @@
 
 use_default_settings: true
 
+search:
+  formats:
+    - html
+    - json
+
+server:
+  secret_key: "yENnhx8YBzomce6Rtcg6lRgixPSUD"
+  limiter: false
+  image_proxy: true
+
 engines:
   - name: searchmysite
-    disabled: false
-  - name: wiby
     disabled: false
   - name: mozhi
     disabled: false
@@ -50,8 +58,6 @@ engines:
     disabled: false
   - name: infospace
     disabled: false
-  - name: mwmbl
-    disabled: false
   - name: searchtoday
     disabled: false
   - name: tineye
@@ -70,7 +76,3 @@ engines:
     disabled: 
   - name: baidu
     disabled: false
-
-server:
-  secret_key: "yENnhx8YBzomce6Rtcg6lRgixPSUD"
-  image_proxy: true
