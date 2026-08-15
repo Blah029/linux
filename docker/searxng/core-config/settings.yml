@@ -1,0 +1,76 @@
+# Read the documentation before extending the defaults:
+# https://docs.searxng.org/admin/settings/
+
+use_default_settings: true
+
+engines:
+  - name: searchmysite
+    disabled: false
+  - name: wiby
+    disabled: false
+  - name: mozhi
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: brave
+    disabled: true
+  - name: duckduckgo
+    disabled: true
+  - name: mojeek
+    disabled: false
+  - name: startpage
+    disabled: true
+  - name: naver
+    disabled: false
+  - name: wikibooks
+    disabled: false
+  - name: wikiquote
+    disabled: false
+  - name: wikisource
+    disabled: false
+  - name: wikispecies
+    disabled: false
+  - name: wikiversity
+    disabled: false
+  - name: wikivoyage
+    disabled: false
+  - name: ayo
+    disabled: false
+  - name: crowdview
+    disabled: false
+  - name: ddg definitions
+    disabled: false
+  - name: duckduckgo web
+    disabled: false
+  - name: encyclosearch
+    disabled: false
+  - name: fynd
+    disabled: false
+  - name: gmx
+    disabled: false
+  - name: infospace
+    disabled: false
+  - name: mwmbl
+    disabled: false
+  - name: searchtoday
+    disabled: false
+  - name: tineye
+    disabled: false
+  - name: vuhuv
+    disabled: false
+  - name: yandex
+    disabled: false
+  - name: searchch
+    disabled: false
+  - name: bpb
+    disabled: false
+  - name: reloado
+    disabled: false
+  - name: tagesschau
+    disabled: 
+  - name: baidu
+    disabled: false
+
+server:
+  secret_key: "yENnhx8YBzomce6Rtcg6lRgixPSUD"
+  image_proxy: true
