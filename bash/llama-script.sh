@@ -9,18 +9,15 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options] parameter
 Options:
     -h, --help                  Print help and exit
     -v, --verbose               Enable verbose output
-    -g, --github                Run downloaded GitHub Vulkan release
-    -r, --rocm                  Run downloaded GitHub ROCm release
     -a, --all                   Run all tools for AnythingLLM
-    -m, --model <file>          Large language model in GGUF format. Default gemma-4-12B-it-Q4_0.gguf". 
-                                Or
-                                    12b     - Auto load Gemma 4 12B models. Good for large image PDFs
-                                    26b-m   - Audo load Gemma 4 26B A4B with Multi-Token Prediction 
-                                    26b-d   - Auto load Gemma 4 26B A4B with DFlash. Good for large text PDFs
-    --md <file>                 Multitoken prediction head in GGUF format. Default mtp-gemma-4-12B-it-Q4_0.gguf
-    --mm <file>                 Multimedia projector in GGUF format. Default mmproj-gemma-4-12B-it-Q8_0.gguf"
-    --st <type>                 Speculative decoding type
-    --em <file>                 Vector embedding model in GGUF format. Default nomic-embed-text-v1.f16.gguf
+    --vulkan                    Run downloaded GitHub Vulkan release
+    --rocm                      Run downloaded GitHub ROCm release
+    -m, --model <model>         Large language model. Default gemma-26b" 
+                                    gemma-12b       - Gemma 4 12B. Good for large image PDFs
+                                    gemma-26b       - Gemma 4 26B A4B with Multi-Token Prediction 
+                                    gemma-26b-df    - Gemma 4 26B A4B with DFlash. Good for large text PDFs
+                                    qwen-27b        - Qwen 3.8 27B
+    --em <file>                 Vector embedding model in GGUF format. Default nomic/nomic-embed-text-v1.f16.gguf
 EOF
     exit
 }
@@ -35,37 +32,22 @@ die() {
 
 parse_arguments() {
     # Defaults
-    verbosity=3
+    verbose_flag=false
+    tools_flag=false
     executable="llama serve"
-    model="gemma-4-26B-A4B-it-Q4_0.gguf"
-    draft_model="mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
-    multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-    speculative_type="draft-mtp"
-    embedding_model="nomic-embed-text-v1.f16.gguf"
+    model="gemma-26b"
+    embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
     while :; do
         case "${1-}" in
             -h | --help) usage;;
-            -v | --verbose) verbosity=5;;
-            -g | --github) executable="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
-            -r | --rocm) executable="$HOME/applications/llama-cpp/binary/rocm/llama-server";;
-            -a | --all) tools;;
+            -v | --verbose) verbose_flag=true;;
+            -a | --all) tools_flag=true;;
+            --vulkan) executable="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
+            --rocm) executable="$HOME/applications/llama-cpp/binary/rocm/llama-server";;
             -m | --model)
                 model="${2-}"
-                autoload
-                shift
-                ;;
-            --md)
-                draft_model="${2-}"
-                shift
-                ;;
-            --mm)
-                multimedia_projector="${2-}"
-                shift
-                ;;
-            --st)
-                speculative_type="${2-}"
                 shift
                 ;;
             --em)
@@ -85,15 +67,13 @@ parse_arguments() {
 
     # Check for required named parameters
     [[ -z "${model-}" ]] && die "Missing required parameter: --model"
-    [[ -z "${draft_model-}" ]] && die "Missing required parameter: --md"
-    [[ -z "${multimedia_projector-}" ]] && die "Missing required parameter: --mm"
-    [[ -z "${speculative_type-}" ]] && die "Missing required parameter: --st"
+    [[ -z "${embedding_model-}" ]] && die "Missing required parameter: --em"
 }
 
 
 tools() {
     # Embedding model
-    embedding_model_path="$HOME/applications/llama-cpp/models/nomic/${embedding_model}"
+    embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${executable} \
         -m ${embedding_model_path} \
         --rope-scaling yarn \
@@ -113,56 +93,33 @@ tools() {
 
 autoload() {
     case "${model}" in
-        "12b")
-            model="gemma-4-12B-it-Q4_0.gguf"
-            draft_model="mtp-gemma-4-12B-it-Q4_0.gguf"
-            multimedia_projector="mmproj-gemma-4-12B-it-Q8_0.gguf"
+        "gemma-12b")
+            llm="gemma/gemma-4-12B-it-Q4_0.gguf"
+            draft_model="gemma/mtp-gemma-4-12B-it-Q4_0.gguf"
+            multimedia_projector="gemma/gemma/mmproj-gemma-4-12B-it-Q8_0.gguf"
             speculative_type="draft-mtp"
             ;;  
-        "26b-m")
-            model="gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
-            multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+        "gemma-26b")
+            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
+            draft_model="gemma/mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
+            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
             speculative_type="draft-mtp"
             ;;  
-        "26b-d")
-            model="gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
-            multimedia_projector="mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+        "gemma-26b-df")
+            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
+            draft_model="gemma/dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
+            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
             speculative_type="draft-dflash"
+            ;;  
+        "qwen-27b")
+            die "Qwen 3.8 27B not implemented"
             ;;  
     esac
 }
 
 
 main() {
-    model_path="$HOME/applications/llama-cpp/models/gemma/${model}"
-    draft_model_path="$HOME/applications/llama-cpp/models/gemma/${draft_model}"
-    multimedia_projector_path="$HOME/applications/llama-cpp/models/gemma/${multimedia_projector}"
-    ${executable} \
-        -m ${model_path} \
-        -md ${draft_model_path} \
-        -mm ${multimedia_projector_path} \
-        --spec-type ${speculative_type} \
-        -t 12 \
-        -c 0 \
-        -b 1024 \
-        -ub 512 \
-        -fa on \
-        -ctk q8_0 \
-        -ctv q8_0 \
-        -ngl all \
-        -mg 0 \
-        -fit on \
-        -fitt 1024 \
-        -lv ${verbosity} \
-        -ctkd q8_0 \
-        -ctvd q8_0 \
-        --temp 0.5 \
-        -td 12 \
-        -ngld all \
-        --host 0.0.0.0 \
-        --port 8080
+    # Set common llama.cpp parameters
     # Min. batch size for full gpu utilisation
     #   -b 256 \
     #   -ub 128 \
@@ -175,7 +132,50 @@ main() {
     # Max. batch size for parsing large pfds as text
     #   -b 8192 \
     #   -ub 4096 \
-    #
+    executable_args=(
+        -t 12
+        -c 0
+        -b 1024
+        -ub 512
+        -fa on
+        -ctk q8_0
+        -ctv q8_0
+        -ngl all
+        -mg 0
+        -fit on
+        -fitt 1024
+        -ctkd q8_0
+        -ctvd q8_0
+        --temp 0.5
+        -td 12
+        -ngld all
+        --host 0.0.0.0
+        --port 8080
+    )
+
+    # Set model preferences
+    autoload
+    executable_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
+    if [[ -n $draft_model ]]; then
+        executable_args+=(-md "$HOME/applications/llama-cpp/models/${draft_model}")
+    fi
+    if [[ -n $multimedia_projector ]]; then
+        executable_args+=(-mm "$HOME/applications/llama-cpp/models/${multimedia_projector}")
+    fi
+    if [[ -n $speculative_type ]]; then
+        executable_args+=(--spec-type ${speculative_type})
+    fi
+    
+    # Act on flags
+    if [ $verbose_flag == true ]; then
+        executable_args+=(-v)
+    fi
+    if [ $tools_flag == true ]; then
+        tools
+    fi
+
+    # Launch llama.cpp
+    ${executable} ${executable_args[@]}
 }
 
 
