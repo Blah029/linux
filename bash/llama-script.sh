@@ -12,7 +12,7 @@ Options:
     -a, --all                   Run all tools for AnythingLLM
     --vulkan                    Run downloaded GitHub Vulkan release
     --rocm                      Run downloaded GitHub ROCm release
-    -m, --model <model>         Large language model. Default gemma-26b" 
+    -m, --model <model>         Large language model. Default qwen-27b 
                                     gemma-12b       - Gemma 4 12B. Good for large image PDFs
                                     gemma-26b       - Gemma 4 26B A4B with Multi-Token Prediction 
                                     gemma-26b-df    - Gemma 4 26B A4B with DFlash. Good for large text PDFs
@@ -35,7 +35,7 @@ parse_arguments() {
     verbose_flag=false
     tools_flag=false
     executable="llama serve"
-    model="gemma-26b"
+    model="qwen-27b"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
@@ -71,6 +71,48 @@ parse_arguments() {
 }
 
 
+autoload() {
+    gemma_args=(
+        -c 0
+        -fit on
+        -fitt 1024
+    )
+    qwen_args=(
+        -c 131072
+        --spec-draft-n-max 3
+    )
+    case "${model}" in
+        "gemma-12b")
+            llm="gemma/gemma-4-12B-it-Q4_0.gguf"
+            draft_model="gemma/mtp-gemma-4-12B-it-Q4_0.gguf"
+            multimedia_projector="gemma/gemma/mmproj-gemma-4-12B-it-Q8_0.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(${gemma_args[@]})
+            ;;  
+        "gemma-26b")
+            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
+            draft_model="gemma/mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
+            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(${gemma_args[@]})
+            ;;  
+        "gemma-26b-df")
+            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
+            draft_model="gemma/dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
+            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+            speculative_type="draft-dflash"
+            executable_args+=(${gemma_args[@]})
+            ;;  
+        "qwen-27b")
+            llm="qwen/Qwen3.8-27B-Ridge-3.7bpw.gguf"
+            multimedia_projector="qwen/mmproj-Qwen3.8-27B-BF16.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(${qwen_args[@]})
+            ;;  
+    esac
+}
+
+
 tools() {
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
@@ -91,35 +133,8 @@ tools() {
 }
 
 
-autoload() {
-    case "${model}" in
-        "gemma-12b")
-            llm="gemma/gemma-4-12B-it-Q4_0.gguf"
-            draft_model="gemma/mtp-gemma-4-12B-it-Q4_0.gguf"
-            multimedia_projector="gemma/gemma/mmproj-gemma-4-12B-it-Q8_0.gguf"
-            speculative_type="draft-mtp"
-            ;;  
-        "gemma-26b")
-            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="gemma/mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
-            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-            speculative_type="draft-mtp"
-            ;;  
-        "gemma-26b-df")
-            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="gemma/dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
-            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-            speculative_type="draft-dflash"
-            ;;  
-        "qwen-27b")
-            die "Qwen 3.8 27B not implemented"
-            ;;  
-    esac
-}
-
-
 main() {
-    # Set common llama.cpp parameters
+    # Setup comomon parameters
     # Min. batch size for full gpu utilisation
     #   -b 256 \
     #   -ub 128 \
@@ -134,7 +149,6 @@ main() {
     #   -ub 4096 \
     executable_args=(
         -t 12
-        -c 0
         -b 1024
         -ub 512
         -fa on
@@ -142,8 +156,6 @@ main() {
         -ctv q8_0
         -ngl all
         -mg 0
-        -fit on
-        -fitt 1024
         -ctkd q8_0
         -ctvd q8_0
         --temp 0.5
@@ -153,7 +165,7 @@ main() {
         --port 8080
     )
 
-    # Set model preferences
+    # Load model preferences
     autoload
     executable_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
     if [[ -n $draft_model ]]; then

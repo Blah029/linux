@@ -50,11 +50,7 @@ engines:
     disabled: false
   - name: duckduckgo web
     disabled: false
-  - name: encyclosearch
-    disabled: false
   - name: fynd
-    disabled: false
-  - name: gmx
     disabled: false
   - name: infospace
     disabled: false
@@ -62,15 +58,9 @@ engines:
     disabled: false
   - name: tineye
     disabled: false
-  - name: vuhuv
-    disabled: false
   - name: yandex
     disabled: false
   - name: searchch
-    disabled: false
-  - name: bpb
-    disabled: false
-  - name: reloado
     disabled: false
   - name: tagesschau
     disabled: 
