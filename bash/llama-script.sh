@@ -12,10 +12,8 @@ Options:
     -a, --all                   Run all tools for AnythingLLM
     --vulkan                    Run downloaded GitHub Vulkan release
     --rocm                      Run downloaded GitHub ROCm release
-    -m, --model <model>         Large language model. Default qwen-27b 
-                                    gemma-12b       - Gemma 4 12B. Good for large image PDFs
-                                    gemma-26b       - Gemma 4 26B A4B with Multi-Token Prediction 
-                                    gemma-26b-df    - Gemma 4 26B A4B with DFlash. Good for large text PDFs
+    -m, --model <model>         Large language model. Default qwen-27b
+                                    gemma-26b       - Gemma 4 26B A4B
                                     qwen-27b        - Qwen 3.8 27B
     --em <file>                 Vector embedding model in GGUF format. Default nomic/nomic-embed-text-v1.f16.gguf
 EOF
@@ -88,8 +86,15 @@ autoload() {
     )
     case "${model}" in
         "gemma-26b")
+            llm="gemma/ggml/gemma-4-26B-A4B-it-Q4_0.gguf"
+            draft_model="gemma/ggml/mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
+            multimedia_projector="gemma/ggml/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+            speculative_type="draft-mtp"
+            common_args+=(${gemma_args[@]})
+            ;;  
+        "gemma-26b-qat")
             llm="gemma/unsloth/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
-            draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
+            draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-qat-Q8_0.gguf"
             multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-F16.gguf"
             speculative_type="draft-mtp"
             common_args+=(${gemma_args[@]})
