@@ -74,39 +74,32 @@ parse_arguments() {
 autoload() {
     gemma_args=(
         -c 262144
+        --temp 1.0
+        --top-k 64
+        --top-p 0.95
     )
     qwen_args=(
         -c 131072
+        --temp 1.0
+        --top-k 20
+        --top-p 0.95
+        --presence-penalty 0.0
         --spec-draft-n-max 3
     )
     case "${model}" in
-        "gemma-12b")
-            llm="gemma/gemma-4-12B-it-Q4_0.gguf"
-            draft_model="gemma/mtp-gemma-4-12B-it-Q4_0.gguf"
-            multimedia_projector="gemma/gemma/mmproj-gemma-4-12B-it-Q8_0.gguf"
-            speculative_type="draft-mtp"
-            executable_args+=(${gemma_args[@]})
-            ;;  
         "gemma-26b")
-            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="gemma/mtp-gemma-4-26B-A4B-it-Q4_0.gguf"
-            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
+            llm="gemma/unsloth/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
+            draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
+            multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-F16.gguf"
             speculative_type="draft-mtp"
-            executable_args+=(${gemma_args[@]})
-            ;;  
-        "gemma-26b-df")
-            llm="gemma/gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="gemma/dflash-gemma-4-26B-A4B-it-Q8_0.gguf"
-            multimedia_projector="gemma/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-            speculative_type="draft-dflash"
-            executable_args+=(${gemma_args[@]})
+            common_args+=(${gemma_args[@]})
             ;;  
         "qwen-27b")
-            llm="qwen/Qwen3.8-27B-Ridge-3.7bpw.gguf"
-            multimedia_projector="qwen/mmproj-Qwen3.8-27B-BF16.gguf"
+            llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
+            multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
             speculative_type="draft-mtp"
-            executable_args+=(${qwen_args[@]})
-            ;;  
+            common_args+=(${qwen_args[@]})
+            ;;
     esac
 }
 
@@ -145,7 +138,7 @@ main() {
     # Max. batch size for parsing large pfds as text
     #   -b 8192 \
     #   -ub 4096 \
-    executable_args=(
+    common_args=(
         -t 12
         -b 1024
         -ub 512
@@ -156,36 +149,36 @@ main() {
         -mg 0
         -ctkd q8_0
         -ctvd q8_0
-        --temp 0.5
         -td 12
         -ngld all
+        --jinja
         --host 0.0.0.0
         --port 8080
     )
 
     # Load model preferences
     autoload
-    executable_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
+    common_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
     if [[ -n $draft_model ]]; then
-        executable_args+=(-md "$HOME/applications/llama-cpp/models/${draft_model}")
+        common_args+=(-md "$HOME/applications/llama-cpp/models/${draft_model}")
     fi
     if [[ -n $multimedia_projector ]]; then
-        executable_args+=(-mm "$HOME/applications/llama-cpp/models/${multimedia_projector}")
+        common_args+=(-mm "$HOME/applications/llama-cpp/models/${multimedia_projector}")
     fi
     if [[ -n $speculative_type ]]; then
-        executable_args+=(--spec-type ${speculative_type})
+        common_args+=(--spec-type ${speculative_type})
     fi
     
     # Act on flags
     if [ $verbose_flag == true ]; then
-        executable_args+=(-v)
+        common_args+=(-v)
     fi
     if [ $tools_flag == true ]; then
         tools
     fi
 
     # Launch llama.cpp
-    ${executable} ${executable_args[@]}
+    ${executable} ${common_args[@]}
 }
 
 
