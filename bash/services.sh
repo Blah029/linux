@@ -11,6 +11,7 @@ Options:
     -s, --start     Start
     -e, --stop      Stop 
     -r, --restart   Restart
+    -a, --all       Manage all including critical services
 EOF
     exit
 }
@@ -26,6 +27,7 @@ die() {
 parse_arguments() {
     # Defaults
     action=0
+    all_flag=false
     
     # Parse flags and named parameters
     while :; do
@@ -34,6 +36,7 @@ parse_arguments() {
             -s | --start) action="start";;
             -e | --stop) action="stop";;
             -r | --restart) action="restart";;
+            -a | --all) all_flag=true;;
             # Exit if an unexpected option is passed
             -?*) die "Unexpected option: $1";;
             # If no matches, break while loop to parse positional parameters
@@ -45,16 +48,6 @@ parse_arguments() {
     # Parse positional parameters
     args=("$@")
 }
-
-
-services=(
-    "docker.socket"
-    "docker"
-    "jellyfin"
-    "playit"
-    #"sshd"
-    #"wg-quick@wg0"
-)
 
 
 start_services() {
@@ -80,10 +73,11 @@ stop_services() {
     echo "Docker - Killing AnythingLLM provider processes"
     pkill llama
     pkill qdrant
-    # Wireguard
-    #echo "Wireguard - Bringing interface down"
-    #sudo wg-quick down wg0
-    
+    if [[ $all_flag == true ]]; then
+        # Wireguard
+        echo "Wireguard - Bringing interface down"
+        sudo wg-quick down wg0
+    fi
     # Batch stop services
     echo -e "\nStopping services\n"
     for service in ${services[@]}; do
@@ -100,6 +94,20 @@ restart_services() {
 
 
 main() {
+    services=(
+        "docker.socket"
+        "docker"
+        "jellyfin"
+    )
+    critical_services=(
+        "playit"
+        "sshd"
+        "wg-quick@wg0"
+    )
+    if [[ $all_flag == true ]]; then
+        services+=(${critical_services[@]})
+    fi
+
     case "$action" in
         "start") start_services;;
         "stop") stop_services;;
