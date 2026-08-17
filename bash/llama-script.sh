@@ -73,9 +73,7 @@ parse_arguments() {
 
 autoload() {
     gemma_args=(
-        -c 0
-        -fit on
-        -fitt 1024
+        -c 262144
     )
     qwen_args=(
         -c 131072
