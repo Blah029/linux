@@ -1,0 +1,150 @@
+log_level: INFO
+
+# logger:
+#   format: text
+
+#   on_disk:
+#     enabled: true
+#     log_file: path/to/log/file.log
+#     log_level: INFO
+#     # Logging format, supports `text` and `json`
+#     format: text
+#     buffer_size_bytes: 1024
+
+storage:
+  storage_path: "/home/ransika/applications/qdrant/storage"
+  snapshots_path: "/home/ransika/applications/qdrant/snapshots"
+
+  snapshots_config:
+    snapshots_storage: local
+    # s3_config:
+    #   bucket: ""
+    #   region: ""
+    #   access_key: ""
+    #   secret_key: ""
+
+  temp_path: null
+  on_disk_payload: true
+
+  update_concurrency: null
+
+  wal:
+    wal_capacity_mb: 32
+    wal_segments_ahead: 0
+
+  node_type: "Normal"
+  # node_type: "Listener"
+
+  performance:
+    max_search_threads: 0
+    optimizer_cpu_budget: 0
+    update_rate_limit: null
+
+    #incoming_shard_transfers_limit: 1
+    #outgoing_shard_transfers_limit: 1
+    #async_scorer: false
+    #max_concurrent_collection_loads: 1
+    #max_concurrent_shard_loads: 1
+    #max_concurrent_segment_loads: 8
+
+  optimizers:
+    deleted_threshold: 0.2
+    vacuum_min_vector_number: 1000
+    default_segment_number: 0
+    max_segment_size_kb: null
+    indexing_threshold_kb: 10000
+    flush_interval_sec: 5
+    max_optimization_threads: null
+
+  #optimizers_overwrite:
+  #  deleted_threshold: 0.2
+  #  vacuum_min_vector_number: 1000
+  #  default_segment_number: 0
+  #  max_segment_size_kb: null
+  #  indexing_threshold_kb: 10000
+  #  flush_interval_sec: 5
+  #  max_optimization_threads: null
+
+  hnsw_index:
+    m: 16
+    ef_construct: 100
+    full_scan_threshold_kb: 10000
+    max_indexing_threads: 0
+    on_disk: false
+
+    # memory: cached
+
+    payload_m: null
+
+  shard_transfer_method: null
+
+  collection:
+    replication_factor: 1
+    write_consistency_factor: 1
+    vectors:
+      on_disk: null
+      # memory: null
+
+    # shard_number_per_node: 1
+    quantization: null
+
+    #strict_mode:
+      #enabled: false
+      #max_query_limit: null
+      #max_timeout: null
+      #unindexed_filtering_retrieve: null
+      #unindexed_filtering_update: null
+      #search_max_hnsw_ef: null
+      #search_allow_exact: null
+      #search_max_oversampling: null
+
+  max_collections: null
+
+  #quotas:
+    #enabled: false
+    #max_resident_memory_percent: null
+    #max_disk_usage_percent: null
+    #release_margin_percent: null
+
+service:
+  max_request_size_mb: 32
+  max_workers: 0
+  host: 0.0.0.0
+  http_port: 6333
+  grpc_port: 6334
+  enable_cors: true
+  enable_tls: false
+  verify_https_client_certificate: false
+
+  # api_key: your_secret_api_key_here
+  # read_only_api_key: your_secret_read_only_api_key_here
+  # jwt_rbac: true
+  # hardware_reporting: true
+  # metrics_prefix: qdrant_
+
+cluster:
+  enabled: false
+
+  p2p:
+    port: 6335
+    enable_tls: false
+
+  consensus:
+    tick_period_ms: 100
+    compact_wal_entries: 128
+
+telemetry_disabled: true
+
+tls:
+  cert: "/home/ransika/applications/qdrant/tls/cert.pem"
+  key: "/home/ransika/applications/qdrant/tls/key.pem"
+  ca_cert: "/home/ransika/applications/qdrant/tls/cacert.pem"
+  cert_ttl: 3600
+
+
+# audit:
+#   enabled: false
+#   dir: "C:/Users/User Programs/CLI Programs/qdrant/storage/audit"
+#   rotation: daily
+#   max_log_files: 7
+#   trust_forwarded_headers: false
