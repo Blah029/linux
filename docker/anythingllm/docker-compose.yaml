@@ -11,6 +11,7 @@ services:
             - $HOME/applications/anythingllm/anythingllm-fs:/app/server/storage/anythingllm-fs
             - $HOME/Documents/github/linux/bash:/app/server/storage/anythingllm-fs/scripts
             - $HOME/Documents/github/engineering-research-project:/app/server/storage/anythingllm-fs/project
+            - $HOME/Documents/github/llama.cpp:/app/server/storage/anythingllm-fs/llama-repo
         environment:
             - STORAGE_DIR=/app/server/storage
         image: mintplexlabs/anythingllm:latest

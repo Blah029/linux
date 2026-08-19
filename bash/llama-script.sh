@@ -84,7 +84,7 @@ autoload() {
 
     # Model
     # Low precision fast
-    #   -c 180224
+    #   -c 196608
     #   -ctk iq4_nl
     #   -ctv iq4_nl
     # High precision long context
@@ -92,7 +92,7 @@ autoload() {
     #   -ctk q8_0
     #   -ctv q8_0
     gemma_args=(
-        -c 180224
+        -c 196608
         -ctk iq4_nl
         -ctv iq4_nl
         -fit off
@@ -101,11 +101,11 @@ autoload() {
         --top-p 0.95
     )
     # Low precision fast
-    #   -c 73728
+    #   -c 106496
     #   -ctk iq4_nl
     #   -ctv iq4_nl
     # High precision fast
-    #   -c 49152
+    #   -c 57344
     #   -ctk q8_0
     #   -ctv q8_0
     # High precision long context
@@ -113,7 +113,7 @@ autoload() {
     #   -ctk q8_0
     #   -ctv q8_0
     qwen_args=(
-        -c 49152
+        -c 57344
         -ctk q8_0
         -ctv q8_0
         -fit off
