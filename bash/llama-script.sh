@@ -83,15 +83,39 @@ autoload() {
     esac
 
     # Model
+    # Low precision fast
+    #   -c 180224
+    #   -ctk iq4_nl
+    #   -ctv iq4_nl
+    # High precision long context
+    #   -c 252144
+    #   -ctk q8_0
+    #   -ctv q8_0
     gemma_args=(
         -c 180224
+        -ctk iq4_nl
+        -ctv iq4_nl
         -fit off
         --temp 1.0
         --top-k 64
         --top-p 0.95
     )
+    # Low precision fast
+    #   -c 73728
+    #   -ctk iq4_nl
+    #   -ctv iq4_nl
+    # High precision fast
+    #   -c 49152
+    #   -ctk q8_0
+    #   -ctv q8_0
+    # High precision long context
+    #   -c 131072
+    #   -ctk q8_0
+    #   -ctv q8_0
     qwen_args=(
-        -c 73728
+        -c 49152
+        -ctk q8_0
+        -ctv q8_0
         -fit off
         --temp 1.0
         --top-k 20
@@ -104,13 +128,6 @@ autoload() {
     )
     case "${model}" in
         "gemma-26b")
-            llm="gemma/ggml/gemma-4-26B-A4B-it-Q4_0.gguf"
-            draft_model="gemma/ggml/mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
-            multimedia_projector="gemma/ggml/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
-            speculative_type="draft-mtp"
-            executable_args+=(${gemma_args[@]})
-            ;;  
-        "gemma-26b-qat")
             llm="gemma/unsloth/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
             draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-qat-Q8_0.gguf"
             multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-F16.gguf"
@@ -166,8 +183,6 @@ main() {
         -b 1024
         -ub 512
         -fa on
-        -ctk iq4_nl
-        -ctv iq4_nl
         -ngl all
         -mg 0
         -td 12
