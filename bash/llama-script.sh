@@ -8,10 +8,12 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options] parameter
 
 Options:
     -h, --help                  Print help and exit
+    --llama-help                Print llama.cpp help and exit
     -v, --verbose               Enable verbose output
     -a, --all                   Run all tools for AnythingLLM
-    --vulkan                    Run downloaded GitHub Vulkan release
-    --rocm                      Run downloaded GitHub ROCm release
+    -s, --source <repository>   Binary source. Default github
+                                    github          - Run downloaded GitHub Vulkan release
+                                    huggingface     - Run HugginFace realease installed from llama.app
     -m, --model <model>         Large language model. Default qwen-27b
                                     gemma-26b       - Gemma 4 26B A4B
                                     qwen-27b        - Qwen 3.8 27B
@@ -30,9 +32,10 @@ die() {
 
 parse_arguments() {
     # Defaults
+    llama_help_flag=false
     verbose_flag=false
     tools_flag=false
-    executable="llama serve"
+    executable_source="github"
     model="qwen-27b"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
@@ -40,10 +43,13 @@ parse_arguments() {
     while :; do
         case "${1-}" in
             -h | --help) usage;;
+            --llama-help) llama_help_flag=true;;
             -v | --verbose) verbose_flag=true;;
             -a | --all) tools_flag=true;;
-            --vulkan) executable="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
-            --rocm) executable="$HOME/applications/llama-cpp/binary/rocm/llama-server";;
+            -s | --source)
+                executable_source="${2-}"
+                shift
+                ;;
             -m | --model)
                 model="${2-}"
                 shift
@@ -70,19 +76,31 @@ parse_arguments() {
 
 
 autoload() {
+    # Executable
+    case ${executable_source} in
+        "huggingface") executable="llama serve";;
+        "github") executable="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
+    esac
+
+    # Model
     gemma_args=(
-        -c 262144
+        -c 180224
+        -fit off
         --temp 1.0
         --top-k 64
         --top-p 0.95
     )
     qwen_args=(
-        -c 131072
+        -c 73728
+        -fit off
         --temp 1.0
         --top-k 20
         --top-p 0.95
+        --min-p 0.0
         --presence-penalty 0.0
+        --repeat-penalty 1.0
         --spec-draft-n-max 3
+        --reasoning-preserve
     )
     case "${model}" in
         "gemma-26b")
@@ -90,20 +108,20 @@ autoload() {
             draft_model="gemma/ggml/mtp-gemma-4-26B-A4B-it-Q8_0.gguf"
             multimedia_projector="gemma/ggml/mmproj-gemma-4-26B-A4B-it-Q8_0.gguf"
             speculative_type="draft-mtp"
-            common_args+=(${gemma_args[@]})
+            executable_args+=(${gemma_args[@]})
             ;;  
         "gemma-26b-qat")
             llm="gemma/unsloth/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
             draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-qat-Q8_0.gguf"
             multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-F16.gguf"
             speculative_type="draft-mtp"
-            common_args+=(${gemma_args[@]})
+            executable_args+=(${gemma_args[@]})
             ;;  
         "qwen-27b")
             llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
             multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            speculative_type="draft-mtp"
-            common_args+=(${qwen_args[@]})
+            speculative_type="ngram-mod,draft-mtp"
+            executable_args+=(${qwen_args[@]})
             ;;
     esac
 }
@@ -143,19 +161,18 @@ main() {
     # Max. batch size for parsing large pfds as text
     #   -b 8192 \
     #   -ub 4096 \
-    common_args=(
+    executable_args=(
         -t 12
         -b 1024
         -ub 512
         -fa on
-        -ctk q8_0
-        -ctv q8_0
+        -ctk iq4_nl
+        -ctv iq4_nl
         -ngl all
         -mg 0
-        -ctkd q8_0
-        -ctvd q8_0
         -td 12
         -ngld all
+        --context-shift
         --jinja
         --host 0.0.0.0
         --port 8080
@@ -163,27 +180,31 @@ main() {
 
     # Load model preferences
     autoload
-    common_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
+    executable_args+=(-m "$HOME/applications/llama-cpp/models/${llm}")
     if [[ -n $draft_model ]]; then
-        common_args+=(-md "$HOME/applications/llama-cpp/models/${draft_model}")
+        executable_args+=(-md "$HOME/applications/llama-cpp/models/${draft_model}")
     fi
     if [[ -n $multimedia_projector ]]; then
-        common_args+=(-mm "$HOME/applications/llama-cpp/models/${multimedia_projector}")
+        executable_args+=(-mm "$HOME/applications/llama-cpp/models/${multimedia_projector}")
     fi
     if [[ -n $speculative_type ]]; then
-        common_args+=(--spec-type ${speculative_type})
+        executable_args+=(--spec-type ${speculative_type})
     fi
     
     # Act on flags
+    if [ $llama_help_flag == true ]; then
+        executable_args=(--help)
+        tools_flags=false
+    fi
     if [ $verbose_flag == true ]; then
-        common_args+=(-v)
+        executable_args+=(-v)
     fi
     if [ $tools_flag == true ]; then
         tools
     fi
 
     # Launch llama.cpp
-    ${executable} ${common_args[@]}
+    ${executable} ${executable_args[@]}
 }
 
 

@@ -18,8 +18,6 @@ engines:
     disabled: false
   - name: mozhi
     disabled: false
-  - name: bing
-    disabled: false
   - name: brave
     disabled: true
   - name: duckduckgo

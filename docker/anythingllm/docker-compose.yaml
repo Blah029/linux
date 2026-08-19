@@ -8,7 +8,9 @@ services:
         volumes:
             - $HOME/applications/anythingllm:/app/server/storage
             - $HOME/applications/anythingllm/.env:/app/server/.env
-            - $HOME/Documents/anythingllm:/app/server/storage/anythingllm-fs/documents
+            - $HOME/applications/anythingllm/anythingllm-fs:/app/server/storage/anythingllm-fs
+            - $HOME/Documents/github/linux/bash:/app/server/storage/anythingllm-fs/scripts
+            - $HOME/Documents/github/engineering-research-project:/app/server/storage/anythingllm-fs/project
         environment:
             - STORAGE_DIR=/app/server/storage
         image: mintplexlabs/anythingllm:latest
