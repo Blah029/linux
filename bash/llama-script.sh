@@ -119,7 +119,7 @@ autoload() {
             speculative_type="ngram-mod,draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 212992
+                -c 196608
                 -ctk q8_0
                 -ctv q8_0
             )
@@ -143,7 +143,7 @@ autoload() {
             speculative_type="draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 180224
+                -c 147456
                 -ctk q8_0
                 -ctv q8_0
             )
@@ -155,7 +155,7 @@ autoload() {
             speculative_type="draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 147456
+                -c 122880
                 -ctk q8_0
                 -ctv q8_0
             )
@@ -167,7 +167,7 @@ autoload() {
             speculative_type="draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 131072
+                -c 98304
                 -ctk q8_0
                 -ctv q8_0
             )
