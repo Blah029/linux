@@ -14,9 +14,11 @@ Options:
     -s, --source <repository>   Binary source. Default github
                                     github          - Run downloaded GitHub Vulkan release
                                     huggingface     - Run HugginFace realease installed from llama.app
-    -m, --model <model>         Large language model. Default qwen-27b
+    -m, --model <model>         Large language model. Default qwen-27-r
                                     gemma-26b       - Gemma 4 26B A4B
-                                    qwen-27b        - Qwen 3.8 27B
+                                    qwen-27-r       - Empero-AI Qwen 3.8 27B Ridge
+                                    qwen-27b-iq3    - Unsloth Qwen 3.8 27B IQ3_XXS
+                                    qwen-27b-q4     - Unsloth Qwen 3.8 27B Q4_K_S 
     --em <file>                 Vector embedding model in GGUF format. Default nomic/nomic-embed-text-v1.f16.gguf
 EOF
     exit
@@ -36,7 +38,7 @@ parse_arguments() {
     verbose_flag=false
     tools_flag=false
     executable_source="github"
-    model="qwen-27b"
+    model="qwen-27b-r"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
@@ -83,39 +85,16 @@ autoload() {
     esac
 
     # Model
-    # Low precision fast
-    #   -c 196608
-    #   -ctk iq4_nl
-    #   -ctv iq4_nl
-    # High precision long context
-    #   -c 252144
-    #   -ctk q8_0
-    #   -ctv q8_0
     gemma_args=(
-        -c 196608
-        -ctk iq4_nl
-        -ctv iq4_nl
+        -c 262144
+        -ctk q8_0
+        -ctv q8_0
         -fit off
         --temp 1.0
         --top-k 64
         --top-p 0.95
     )
-    # Low precision fast
-    #   -c 106496
-    #   -ctk iq4_nl
-    #   -ctv iq4_nl
-    # High precision fast
-    #   -c 57344
-    #   -ctk q8_0
-    #   -ctv q8_0
-    # High precision long context
-    #   -c 131072
-    #   -ctk q8_0
-    #   -ctv q8_0
     qwen_args=(
-        -c 57344
-        -ctk q8_0
-        -ctv q8_0
         -fit off
         --temp 1.0
         --top-k 20
@@ -123,23 +102,77 @@ autoload() {
         --min-p 0.0
         --presence-penalty 0.0
         --repeat-penalty 1.0
-        --spec-draft-n-max 3
+        --spec-draft-n-max 2
         --reasoning-preserve
     )
     case "${model}" in
         "gemma-26b")
             llm="gemma/unsloth/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
             draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-qat-Q8_0.gguf"
-            multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-F16.gguf"
+            multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-qat-F16.gguf"
             speculative_type="draft-mtp"
             executable_args+=(${gemma_args[@]})
             ;;  
-        "qwen-27b")
+        "qwen-27b-r")
             llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
             multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
             speculative_type="ngram-mod,draft-mtp"
-            executable_args+=(${qwen_args[@]})
+            executable_args+=(
+                ${qwen_args[@]}
+                -c 212992
+                -ctk q8_0
+                -ctv q8_0
+            )
             ;;
+        "qwen-27b-iq3")
+            llm="qwen/unsloth/Qwen3.8-27B-UD-IQ3_XXS.gguf"
+            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
+            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(
+                ${qwen_args[@]}
+                -c 45056
+                -ctk q8_0
+                -ctv q8_0
+            )
+            ;;
+        "qwen-27b-q3")
+            llm="qwen/unsloth/Qwen3.8-27B-UD-Q3_K_XL.gguf"
+            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
+            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(
+                ${qwen_args[@]}
+                -c 180224
+                -ctk q8_0
+                -ctv q8_0
+            )
+            ;;
+        "qwen-27b-iq4")
+            llm="qwen/unsloth/Qwen3.8-27B-UD-IQ4_XS.gguf"
+            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
+            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(
+                ${qwen_args[@]}
+                -c 147456
+                -ctk q8_0
+                -ctv q8_0
+            )
+            ;;
+        "qwen-27b-q4")
+            llm="qwen/unsloth/Qwen3.8-27B-UD-Q4_K_S.gguf"
+            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
+            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
+            speculative_type="draft-mtp"
+            executable_args+=(
+                ${qwen_args[@]}
+                -c 131072
+                -ctk q8_0
+                -ctv q8_0
+            )
+            ;;
+        -?*) die "Incorrect model name: ${model}";;
     esac
 }
 
@@ -212,7 +245,7 @@ main() {
         tools_flags=false
     fi
     if [ $verbose_flag == true ]; then
-        executable_args+=(-v)
+        executable_args+=(-lv 4)
     fi
     if [ $tools_flag == true ]; then
         tools
