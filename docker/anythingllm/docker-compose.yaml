@@ -9,8 +9,9 @@ services:
             - $HOME/applications/anythingllm:/app/server/storage
             - $HOME/applications/anythingllm/.env:/app/server/.env
             - $HOME/applications/anythingllm/anythingllm-fs:/app/server/storage/anythingllm-fs
-            - $HOME/Documents/github/linux/bash:/app/server/storage/anythingllm-fs/scripts
+            - $HOME/Documents/github/ctxpact:/app/server/storage/anythingllm-fs/ctxpact-repo
             - $HOME/Documents/github/engineering-research-project:/app/server/storage/anythingllm-fs/project
+            - $HOME/Documents/github/linux/bash:/app/server/storage/anythingllm-fs/scripts
             - $HOME/Documents/github/llama.cpp:/app/server/storage/anythingllm-fs/llama-repo
         environment:
             - STORAGE_DIR=/app/server/storage
