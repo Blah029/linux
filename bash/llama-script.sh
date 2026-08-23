@@ -119,7 +119,7 @@ autoload() {
             speculative_type="ngram-mod,draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 196608
+                -c 163840
                 -ctk q8_0
                 -ctv q8_0
             )
@@ -178,6 +178,10 @@ autoload() {
 
 
 tools() {
+    # Context compaction proxy
+    nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
+        && source .venv/bin/activate \
+        && python -m ctxpact.server --config config.yaml --local" > "$HOME/temp/nohup-ctxpact.txt" 2>&1 &
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${executable} \

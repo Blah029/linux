@@ -52,7 +52,7 @@ parse_arguments() {
 
 start_services() {
     # Batch start services
-    echo -e "Starting processes\n" 
+    echo -e "Starting services\n" 
     for service in ${services[@]}; do
         echo -e "${service}"
         sudo systemctl start ${service}
@@ -73,6 +73,7 @@ stop_services() {
     echo "Docker - Killing AnythingLLM provider processes"
     pkill llama
     pkill qdrant
+    pkill -f ctxpact
     if [[ $all_flag == true ]]; then
         # Wireguard
         echo "Wireguard - Bringing interface down"
@@ -89,6 +90,7 @@ stop_services() {
 
 restart_services() {
     stop_services
+    echo ""
     start_services
 }
 
