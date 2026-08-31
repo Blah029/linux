@@ -16,8 +16,6 @@ server:
 engines:
 
   # General
-  - name: openlibrary
-    disabled: false
   - name: mozhi
     disabled: false
   - name: duckduckgo
@@ -56,6 +54,8 @@ engines:
     disabled: false
   - name: qwant images
     disabled: false
+  - name: startpage images
+    disabled: true
   - name: 1x
     disabled: false
   - name: 500px
@@ -86,8 +86,6 @@ engines:
     disabled: false
   - name: pixabay images
     disabled: false
-  - name: privacywall images
-    disabled: false
   - name: public domain image archive
     disabled: false
   - name: resulthunter images
@@ -105,4 +103,32 @@ engines:
   - name: yacy images
     disabled: false
   - name: yandex images
+    disabled: false
+
+  # Videos
+  - name: qwant videos
+    disabled: false
+  - name: adobe stock video
+    disabled: false
+  - name: bilibili
+    disabled: false
+  - name: bitchute
+    disabled: false
+  - name: findfiles videos
+    disabled: false
+  - name: google play movies
+    disabled: false
+  - name: media.ccc.de
+    disabled: false
+  - name: odysee
+    disabled: false
+  - name: peertube
+    disabled: false
+  - name: pixabay videos
+    disabled: false
+  - name: tusksearch videos
+    disabled: false
+  - name: vimeo
+    disabled: true
+  - name: vuhuv videos
     disabled: false
