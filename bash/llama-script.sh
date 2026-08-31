@@ -17,8 +17,7 @@ Options:
     -m, --model <model>         Large language model. Default qwen-27-r
                                     gemma-26b       - Gemma 4 26B A4B
                                     qwen-27-r       - Empero-AI Qwen 3.8 27B Ridge
-                                    qwen-27b-iq3    - Unsloth Qwen 3.8 27B IQ3_XXS
-                                    qwen-27b-q4     - Unsloth Qwen 3.8 27B Q4_K_S 
+                                    qwen-27b-q3     - Unsloth Qwen 3.8 27B Q3_K_XL
     --em <file>                 Vector embedding model in GGUF format. Default nomic/nomic-embed-text-v1.f16.gguf
 EOF
     exit
@@ -37,7 +36,7 @@ parse_arguments() {
     llama_help_flag=false
     verbose_flag=false
     tools_flag=false
-    executable_source="github"
+    executable_source="huggingface"
     model="qwen-27b-r"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
@@ -86,10 +85,12 @@ autoload() {
 
     # Model
     gemma_args=(
-        -c 262144
+        -c 131027
+        -ncmoe 7
         -ctk q8_0
         -ctv q8_0
         -fit off
+        -ngld all
         --temp 1.0
         --top-k 64
         --top-p 0.95
@@ -102,7 +103,7 @@ autoload() {
         --min-p 0.0
         --presence-penalty 0.0
         --repeat-penalty 1.0
-        --spec-draft-n-max 2
+        --spec-draft-n-max 3
         --reasoning-preserve
     )
     case "${model}" in
@@ -111,7 +112,10 @@ autoload() {
             draft_model="gemma/unsloth/mtp-gemma-4-26B-A4B-it-qat-Q8_0.gguf"
             multimedia_projector="gemma/unsloth/mmproj-gemma-4-26B-A4B-it-qat-F16.gguf"
             speculative_type="draft-mtp"
-            executable_args+=(${gemma_args[@]})
+            executable_args+=(
+                ${gemma_args[@]}
+                -a "gemma-4-26B-A4B-it-qat-UD-Q4_K_XL"
+            )
             ;;  
         "qwen-27b-r")
             llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
@@ -119,57 +123,36 @@ autoload() {
             speculative_type="ngram-mod,draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 163840
+                -a "Qwen3.8-27B-Ridge-3.7bpw"
+                -c 122880
                 -ctk q8_0
                 -ctv q8_0
-            )
-            ;;
-        "qwen-27b-iq3")
-            llm="qwen/unsloth/Qwen3.8-27B-UD-IQ3_XXS.gguf"
-            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
-            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
-            speculative_type="draft-mtp"
-            executable_args+=(
-                ${qwen_args[@]}
-                -c 45056
-                -ctk q8_0
-                -ctv q8_0
+                -ngld all
             )
             ;;
         "qwen-27b-q3")
             llm="qwen/unsloth/Qwen3.8-27B-UD-Q3_K_XL.gguf"
-            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
-            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
             speculative_type="draft-mtp"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 147456
-                -ctk q8_0
-                -ctv q8_0
+                -a "Qwen3.8-27B-UD-Q3_K_XL"
+                -c 26624
+                -ctk q5_1
+                -ctv q5_1
+                -ngld 0
             )
             ;;
-        "qwen-27b-iq4")
-            llm="qwen/unsloth/Qwen3.8-27B-UD-IQ4_XS.gguf"
-            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
-            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
-            speculative_type="draft-mtp"
+        "qwen-27b-g")
+            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf"
+            draft_model="qwen/analogalok/Qwen3.8-27B-DFlash2-Q2_K.gguf"
+            speculative_type="draft-dflash"
             executable_args+=(
                 ${qwen_args[@]}
-                -c 122880
-                -ctk q8_0
-                -ctv q8_0
-            )
-            ;;
-        "qwen-27b-q4")
-            llm="qwen/unsloth/Qwen3.8-27B-UD-Q4_K_S.gguf"
-            draft_model="qwen/unsloth/mtp-Qwen3.8-27B-Q4_0.gguf"
-            multimedia_projector="qwen/unsloth/mmproj-Qwen3.8-27B-F16.gguf"
-            speculative_type="draft-mtp"
-            executable_args+=(
-                ${qwen_args[@]}
-                -c 98304
-                -ctk q8_0
-                -ctv q8_0
+                -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
+                -c 65536
+                -ctk q5_1
+                -ctv q5_1
+                -ngld all
             )
             ;;
         -?*) die "Incorrect model name: ${model}";;
@@ -181,7 +164,7 @@ tools() {
     # Context compaction proxy
     nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
         && source .venv/bin/activate \
-        && python -m ctxpact.server --config config.yaml --local" > "$HOME/temp/nohup-ctxpact.txt" 2>&1 &
+        && python -m ctxpact.server --config config-${model}.yaml --local" > "$HOME/temp/nohup-ctxpact.txt" 2>&1 &
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${executable} \
@@ -223,7 +206,8 @@ main() {
         -ngl all
         -mg 0
         -td 12
-        -ngld all
+        -ctxcp 2
+        -cram 4096
         --context-shift
         --jinja
         --host 0.0.0.0

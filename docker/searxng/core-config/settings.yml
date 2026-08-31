@@ -14,33 +14,21 @@ server:
   image_proxy: true
 
 engines:
-  - name: searchmysite
+
+  # General
+  - name: openlibrary
     disabled: false
   - name: mozhi
     disabled: false
-  - name: brave
-    disabled: true
   - name: duckduckgo
     disabled: true
   - name: mojeek
     disabled: false
   - name: startpage
     disabled: true
-  - name: naver
-    disabled: false
-  - name: wikibooks
-    disabled: false
-  - name: wikiquote
-    disabled: false
-  - name: wikisource
-    disabled: false
-  - name: wikispecies
-    disabled: false
-  - name: wikiversity
-    disabled: false
-  - name: wikivoyage
-    disabled: false
   - name: ayo
+    disabled: false
+  - name: boardreader
     disabled: false
   - name: crowdview
     disabled: false
@@ -48,19 +36,73 @@ engines:
     disabled: false
   - name: duckduckgo web
     disabled: false
-  - name: fynd
-    disabled: false
-  - name: infospace
-    disabled: false
-  - name: searchtoday
+  - name: resulthunter
     disabled: false
   - name: tineye
     disabled: false
   - name: yandex
     disabled: false
-  - name: searchch
+
+  # Imgaes
+  - name: flaticon
     disabled: false
-  - name: tagesschau
-    disabled: 
-  - name: baidu
+  - name: material icons
+    disabled: false
+  - name: selfhst icons
+    disabled: false
+  - name: uxwing
+    disabled: false
+  - name: mojeek images
+    disabled: false
+  - name: qwant images
+    disabled: false
+  - name: 1x
+    disabled: false
+  - name: 500px
+    disabled: false
+  - name: adobe stock
+    disabled: false
+  - name: artstation
+    disabled: false
+  - name: cara
+    disabled: false
+  - name: findfiles images
+    disabled: false
+  - name: findthatmeme
+    disabled: false
+  - name: frinkiac
+    disabled: false
+  - name: giphy
+    disabled: false
+  - name: imgur
+    disabled: false
+  - name: ipernity
+    disabled: false
+  - name: library of congress
+    disabled: false
+  - name: magnific
+    disabled: false
+  - name: picjumbo
+    disabled: false
+  - name: pixabay images
+    disabled: false
+  - name: privacywall images
+    disabled: false
+  - name: public domain image archive
+    disabled: false
+  - name: resulthunter images
+    disabled: false
+  - name: shopify stock
+    disabled: false
+  - name: sogou images
+    disabled: false
+  - name: stocksnap
+    disabled: false
+  - name: tusksearch images
+    disabled: false
+  - name: vuhuv images
+    disabled: false
+  - name: yacy images
+    disabled: false
+  - name: yandex images
     disabled: false

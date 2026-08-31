@@ -41,6 +41,8 @@ parse_arguments() {
 main() {
     echo -e "\nEnabling CPU power monitoring..."
     sudo chmod o+r /sys/class/powercap/intel-rapl\:0/energy_uj
+    echo -e "\nSetting GPU performace level to high..."
+    echo high | sudo tee /sys/class/drm/card1/device/power_dpm_force_performance_level
     #echo -e "\nFixing sample rate and buffer quantum..."
     #pw-metadata -n settings 0 clock.force-rate 48000
     #pw-metadata -n settings 0 clock.force-quantum 500
