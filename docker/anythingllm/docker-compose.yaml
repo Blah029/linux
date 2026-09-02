@@ -9,6 +9,7 @@ services:
             - $HOME/applications/anythingllm:/app/server/storage
             - $HOME/applications/anythingllm/.env:/app/server/.env
             - $HOME/applications/anythingllm/anythingllm-fs:/app/server/storage/anythingllm-fs
+            - $HOME/Documents/github/anything-llm:/app/server/storage/anythingllm-fs/anythingllm-repo:ro
             - $HOME/Documents/github/ctxpact:/app/server/storage/anythingllm-fs/ctxpact-repo:ro
             - $HOME/Documents/github/engineering-research-project:/app/server/storage/anythingllm-fs/project:ro
             - $HOME/Documents/github/linux/bash:/app/server/storage/anythingllm-fs/scripts:ro
