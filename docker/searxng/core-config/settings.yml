@@ -52,23 +52,13 @@ engines:
     disabled: false
   - name: mojeek images
     disabled: false
-  - name: qwant images
-    disabled: false
   - name: startpage images
     disabled: true
-  - name: 1x
-    disabled: false
   - name: 500px
     disabled: false
   - name: adobe stock
     disabled: false
   - name: artstation
-    disabled: false
-  - name: cara
-    disabled: false
-  - name: findfiles images
-    disabled: false
-  - name: findthatmeme
     disabled: false
   - name: frinkiac
     disabled: false
@@ -82,25 +72,15 @@ engines:
     disabled: false
   - name: magnific
     disabled: false
-  - name: picjumbo
-    disabled: false
-  - name: pixabay images
-    disabled: false
   - name: public domain image archive
     disabled: false
   - name: resulthunter images
     disabled: false
   - name: shopify stock
     disabled: false
-  - name: sogou images
-    disabled: false
   - name: stocksnap
     disabled: false
   - name: tusksearch images
-    disabled: false
-  - name: vuhuv images
-    disabled: false
-  - name: yacy images
     disabled: false
   - name: yandex images
     disabled: false
