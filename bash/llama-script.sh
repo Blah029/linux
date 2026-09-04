@@ -39,7 +39,7 @@ parse_arguments() {
     restart_flag=false
     all_flag=false
     command_source="huggingface"
-    model="qwen-27b-r"
+    model="qwen-27b-g-long"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
@@ -133,28 +133,28 @@ autoload() {
                 -ngld all
             )
             ;;
-        "qwen-27b-q3")
-            llm="qwen/unsloth/Qwen3.8-27B-UD-Q3_K_XL.gguf"
+        "qwen-27b-g-fast")
+            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf"
             speculative_type="draft-mtp"
             command_args+=(
                 ${qwen_args[@]}
-                -a "Qwen3.8-27B-UD-Q3_K_XL"
-                -c 26624
+                -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
+                -c 81920
                 -ctk q5_1
                 -ctv q5_1
-                -ngld 0
+                -ngld all
             )
             ;;
-        "qwen-27b-g")
-            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf"
-            draft_model="qwen/analogalok/Qwen3.8-27B-DFlash2-Q2_K.gguf"
+        "qwen-27b-g-long")
+            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+            draft_model="qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
             speculative_type="draft-dflash"
             command_args+=(
                 ${qwen_args[@]}
-                -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
-                -c 65536
-                -ctk q5_1
-                -ctv q5_1
+                -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
+                -c 163840
+                -ctk q8_0
+                -ctv q8_0
                 -ngld all
             )
             ;;
