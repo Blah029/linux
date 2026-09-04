@@ -10,7 +10,7 @@ providers:
     url: "http://10.0.0.1:8080/v1"
     model: "Qwen3.8-27B-Ridge-3.7bpw"
     api_key: "none"
-    max_context: 122880
+    max_context: 131072
     priority: 1
     timeout_seconds: 180
     connect_timeout_seconds: 5
