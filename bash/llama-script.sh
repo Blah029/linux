@@ -99,7 +99,13 @@ autoload() {
         --top-p 0.95
     )
     qwen_args=(
+        -ctk q5_0
+        -ctv q4_1
+        -lm none
         -fit off
+        -ctkd q4_0
+        -ctvd q4_0
+        -ngld all
         --temp 1.0
         --top-k 20
         --top-p 0.95
@@ -123,14 +129,11 @@ autoload() {
         "qwen-27b-r")
             llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
             multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            speculative_type="ngram-mod,draft-mtp"
+            speculative_type="draft-mtp,ngram-mod"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-Ridge-3.7bpw"
-                -c 122880
-                -ctk q8_0
-                -ctv q8_0
-                -ngld all
+                -c 131072
             )
             ;;
         "qwen-27b-g-fast")
@@ -139,23 +142,19 @@ autoload() {
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
-                -c 81920
-                -ctk q5_1
-                -ctv q5_1
-                -ngld all
+                -c 90112
             )
             ;;
         "qwen-27b-g-long")
             llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf"
             draft_model="qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
+            multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
             speculative_type="draft-dflash"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
                 -c 163840
-                -ctk q8_0
-                -ctv q8_0
-                -ngld all
+                
             )
             ;;
         -?*) die "Incorrect model name: ${model}";;
@@ -214,7 +213,6 @@ main() {
         -ub 512
         -fa on
         -ngl all
-        -mg 0
         -td 12
         -ctxcp 2
         -cram 4096
