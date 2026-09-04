@@ -146,7 +146,7 @@ autoload() {
             )
             ;;
         "qwen-27b-g-long")
-            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+            llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf"
             draft_model="qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
             speculative_type="draft-dflash"
             command_args+=(
