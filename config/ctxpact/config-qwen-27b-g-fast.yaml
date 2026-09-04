@@ -8,9 +8,9 @@ server:
 providers:
   - name: "llama.cpp"
     url: "http://10.0.0.1:8080/v1"
-    model: "Qwen3.8-27B-UD-Q3_K_XL"
+    model: "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
     api_key: "none"
-    max_context: 26624
+    max_context: 81920
     priority: 1
     timeout_seconds: 180
     connect_timeout_seconds: 5
@@ -41,9 +41,9 @@ compaction:
 
   stage2_summarize:
     provider: "llama.cpp"
-    model: "Qwen3.8-27B-UD-Q3_K_XL"
-    max_summary_tokens: 2048
-    retention_window: 2
+    model: "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
+    max_summary_tokens: 8192
+    retention_window: 6
     eviction_window: 0.30
     merge_strategy: "conservative"
     parallel: true
