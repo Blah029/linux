@@ -138,7 +138,7 @@ autoload() {
             ;;
         "qwen-27b-g-fast")
             llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf"
-            speculative_type="draft-mtp"
+            speculative_type="draft-mtp,ngram-mod"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
@@ -149,7 +149,7 @@ autoload() {
             llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf"
             draft_model="qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
             multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            speculative_type="draft-dflash"
+            speculative_type="draft-dflash,ngram-mod"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
