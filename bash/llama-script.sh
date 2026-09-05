@@ -18,7 +18,8 @@ Options:
     -m, --model <model>         Large language model. Default qwen-27-r
                                     gemma-26b       - Gemma 4 26B A4B
                                     qwen-27-r       - Empero-AI Qwen 3.8 27B Ridge
-                                    qwen-27b-q3     - Unsloth Qwen 3.8 27B Q3_K_XL
+                                    qwen-27b-g-fast - ISTA-DASLab Qwen3.8 27B GSQ RCO GGUF 
+                                    qwen-27b-g-long - ISTA-DASLab Qwen3.8 27B GSQ RCO GGUF 
     --em <file>                 Vector embedding model in GGUF format. Default nomic/nomic-embed-text-v1.f16.gguf
 EOF
     exit
@@ -92,7 +93,6 @@ autoload() {
         -ncmoe 7
         -ctk q8_0
         -ctv q8_0
-        -fit off
         -ngld all
         --temp 1.0
         --top-k 64
@@ -100,11 +100,10 @@ autoload() {
     )
     qwen_args=(
         -ctk q5_0
-        -ctv q4_1
+        -ctv q5_0
         -lm none
-        -fit off
-        -ctkd q4_0
-        -ctvd q4_0
+        -ctkd q5_0
+        -ctvd q5_0
         -ngld all
         --temp 1.0
         --top-k 20
@@ -112,7 +111,7 @@ autoload() {
         --min-p 0.0
         --presence-penalty 0.0
         --repeat-penalty 1.0
-        --spec-draft-n-max 3
+        --spec-draft-n-max 2
         --reasoning-preserve
     )
     case "${model}" in
@@ -133,7 +132,7 @@ autoload() {
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-Ridge-3.7bpw"
-                -c 131072
+                -c 147456
             )
             ;;
         "qwen-27b-g-fast")
@@ -142,7 +141,7 @@ autoload() {
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
-                -c 90112
+                -c 106496
             )
             ;;
         "qwen-27b-g-long")
@@ -153,11 +152,11 @@ autoload() {
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
-                -c 163840
+                -c 176403
                 
             )
             ;;
-        -?*) die "Incorrect model name: ${model}";;
+        *) die "Incorrect model name: ${model}";;
     esac
 }
 
@@ -173,7 +172,7 @@ tools() {
     # Context compaction proxy
     nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
         && source .venv/bin/activate \
-        && python -m ctxpact.server --config config-${model}.yaml --local" > "$HOME/temp/nohup-ctxpact.txt" 2>&1 &
+        && python -m ctxpact.server --config config-${model}.yaml --local" > /dev/null 2>&1 &
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${command} \
@@ -186,10 +185,10 @@ tools() {
         -ngl all \
         --embedding \
         --host 0.0.0.0 \
-        --port 8081" > "$HOME/temp/nohup-nomic.txt" 2>&1 &
+        --port 8081" > /dev/null 2>&1 &
     # Vector database
     nohup ptyxis -- bash -c "cd $HOME/applications/qdrant \
-        && ./qdrant" > "$HOME/temp/nohup-qdrant.txt" 2>&1 &
+        && ./qdrant" > /dev/null 2>&1 &
 }
 
 
@@ -213,6 +212,7 @@ main() {
         -ub 512
         -fa on
         -ngl all
+        -fit off
         -td 12
         -ctxcp 2
         -cram 4096
