@@ -39,7 +39,7 @@ parse_arguments() {
     restart_flag=false
     all_flag=false
     command_source="huggingface"
-    model="qwen-27b-g-long"
+    model="qwen-27b-r"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
