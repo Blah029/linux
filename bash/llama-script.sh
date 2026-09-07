@@ -40,7 +40,7 @@ parse_arguments() {
     restart_flag=false
     all_flag=false
     command_source="huggingface"
-    model="qwen-27b-r"
+    model="qwen-27b-g-fast"
     embedding_model="nomic/nomic-embed-text-v1.f16.gguf"
     
     # Parse flags and named parameters
@@ -148,7 +148,7 @@ autoload() {
             llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf"
             draft_model="qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
             multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            speculative_type="draft-dflash,ngram-mod"
+            speculative_type="draft-dflash"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
