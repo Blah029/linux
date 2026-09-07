@@ -125,19 +125,9 @@ autoload() {
                 -a "gemma-4-26B-A4B-it-qat-UD-Q4_K_XL"
             )
             ;;  
-        "qwen-27b-r")
-            llm="qwen/empero-ai/Qwen3.8-27B-Ridge-3.7bpw.gguf"
-            multimedia_projector="qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            speculative_type="draft-mtp,ngram-mod"
-            command_args+=(
-                ${qwen_args[@]}
-                -a "Qwen3.8-27B-Ridge-3.7bpw"
-                -c 147456
-            )
-            ;;
         "qwen-27b-g-fast")
             llm="qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf"
-            speculative_type="draft-mtp,ngram-mod"
+            speculative_type="draft-mtp"
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
