@@ -162,7 +162,7 @@ tools() {
     # Context compaction proxy
     nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
         && source .venv/bin/activate \
-        && python -m ctxpact.server --config config-${model}.yaml --local" > /dev/null 2>&1 &
+        && python -m ctxpact.server --config config-${model}.yaml" > /dev/null 2>&1 &
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${command} \
