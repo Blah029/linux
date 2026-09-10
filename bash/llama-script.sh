@@ -155,6 +155,7 @@ kill_processes(){
     pkill llama
     pkill qdrant
     pkill -f ctxpact
+    sleep 1
 }
 
 
@@ -197,13 +198,13 @@ main() {
     #   -b 8192 \
     #   -ub 4096 \
     command_args=(
-        -t 12
+        -t 8
         -b 1024
         -ub 512
         -fa on
         -ngl all
         -fit off
-        -td 12
+        -td 8
         -ctxcp 2
         -cram 4096
         --context-shift
