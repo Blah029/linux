@@ -1,0 +1,11 @@
+{"event": "start", "session_id": "compact-v2-f96d292852cf"}
+{"event": "turn", "turn": 1, "wall_s": 62.0, "prompt_n": 21887, "prefill_tps": 418.4, "gen_tps": 9.5, "predicted_n": 79, "cache_n": 0}
+{"event": "session_state", "turn": 1, "total_input_tokens": 21887, "total_output_tokens": 79, "user_turn_count": 1, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 2, "wall_s": 145.4, "prompt_n": 44023, "prefill_tps": 359.7, "gen_tps": 33.9, "predicted_n": 7, "cache_n": 0}
+{"event": "session_state", "turn": 2, "total_input_tokens": 65910, "total_output_tokens": 86, "user_turn_count": 2, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 3, "wall_s": 286.4, "prompt_n": 22562, "prefill_tps": 215.6, "gen_tps": 25.9, "predicted_n": 7, "cache_n": 44029}
+{"event": "session_state", "turn": 3, "total_input_tokens": 132501, "total_output_tokens": 93, "user_turn_count": 3, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 4, "error": "HTTP Error 503: Service Unavailable"}
+{"event": "post-compaction-turn", "error": "HTTP Error 503: Service Unavailable"}
+{"event": "final", "total_input_tokens": 132501, "compaction_events": [], "error": null}
+DONE

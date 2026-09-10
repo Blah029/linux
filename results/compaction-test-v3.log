@@ -1,0 +1,9 @@
+{"event": "start", "session_id": "compact-v2-a1291b72c319"}
+{"event": "turn", "turn": 1, "wall_s": 59.4, "prompt_n": 21887, "prefill_tps": 412.4, "gen_tps": 11.8, "predicted_n": 72, "cache_n": 0}
+{"event": "session_state", "turn": 1, "total_input_tokens": 21887, "total_output_tokens": 72, "user_turn_count": 1, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 2, "wall_s": 85.3, "prompt_n": 22179, "prefill_tps": 283.4, "gen_tps": 10.4, "predicted_n": 74, "cache_n": 21883}
+{"event": "session_state", "turn": 2, "total_input_tokens": 65949, "total_output_tokens": 146, "user_turn_count": 2, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 3, "error": "HTTP Error 503: Service Unavailable"}
+{"event": "post-compaction-turn", "error": "HTTP Error 503: Service Unavailable"}
+{"event": "final", "total_input_tokens": 65949, "compaction_events": [], "error": null}
+DONE

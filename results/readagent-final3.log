@@ -1,0 +1,173 @@
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=How many chapters are there in this book? List all chapter numbers....
+[readagent] Phase 1 top 10: [(16, 0.0167), (24, 0.0164), (13, 0.0161), (11, 0.0159), (1, 0.0156), (14, 0.0154), (25, 0.0152), (18, 0.0149), (3, 0.0147), (19, 0.0145)]
+[readagent] Question type: how
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+[readagent] LLM 503, retry in 2s...
+[readagent] LLM 503, retry in 2s...
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(16, 0.0167), (24, 0.0164), (13, 0.0161), (11, 0.0159), (1, 0.0156), (14, 0.0154), (25, 0.0152), (18, 0.0149), (3, 0.0147), (19, 0.0145)]
+[readagent] +section 16 excerpted (3606/4016 tokens, rrf=0.0167, 12563 remaining)
+[readagent] +section 24 full (3319 tokens, rrf=0.0164, 9244 remaining)
+[readagent] +section 13 full (2696 tokens, rrf=0.0161, 6548 remaining)
+[readagent] +section 11 full (3163 tokens, rrf=0.0159, 3385 remaining)
+[readagent] +section 1 excerpted (3393/7593 tokens, rrf=0.0156, -23 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=Who is Justine Moritz and what happens to her?...
+[readagent] Phase 1 top 10: [(7, 0.0446), (8, 0.0445), (10, 0.0435), (9, 0.032), (23, 0.0301), (20, 0.0299), (22, 0.0289), (25, 0.0288), (24, 0.0283), (15, 0.0156)]
+[readagent] Question type: who
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(7, 0.0446), (8, 0.0445), (10, 0.0435), (9, 0.032), (23, 0.0301), (20, 0.0299), (22, 0.0289), (25, 0.0288), (24, 0.0283), (15, 0.0156)]
+[readagent] +section 7 excerpted (3417/3630 tokens, rrf=0.0446, 12752 remaining)
+[readagent] +section 8 excerpted (3594/4747 tokens, rrf=0.0445, 9143 remaining)
+[readagent] +section 10 full (2914 tokens, rrf=0.0435, 6229 remaining)
+[readagent] +section 9 excerpted (3590/4086 tokens, rrf=0.0320, 2624 remaining)
+[readagent] +section 23 excerpted (2625/4462 tokens, rrf=0.0301, -16 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=What does the creature ask Frankenstein to create for him?...
+[readagent] Phase 1 top 10: [(6, 0.0445), (11, 0.0433), (25, 0.0432), (19, 0.0421), (1, 0.042), (17, 0.0419), (8, 0.041), (7, 0.0398), (9, 0.0389), (24, 0.038)]
+[readagent] Question type: what
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(6, 0.0445), (11, 0.0433), (25, 0.0432), (19, 0.0421), (1, 0.042), (17, 0.0419), (8, 0.041), (7, 0.0398), (9, 0.0389), (24, 0.038)]
+[readagent] +section 6 full (3091 tokens, rrf=0.0445, 13093 remaining)
+[readagent] +section 11 full (3163 tokens, rrf=0.0433, 9930 remaining)
+[readagent] +section 25 excerpted (3604/14650 tokens, rrf=0.0432, 6311 remaining)
+[readagent] +section 19 excerpted (3597/3729 tokens, rrf=0.0421, 2699 remaining)
+[readagent] +section 1 excerpted (2705/7593 tokens, rrf=0.0420, -21 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=Where does Clerval get murdered?...
+[readagent] Phase 1 top 10: [(8, 0.044), (22, 0.0433), (25, 0.0419), (21, 0.0416), (23, 0.0415), (9, 0.0409), (6, 0.0408), (20, 0.0406), (19, 0.0394), (4, 0.0393)]
+[readagent] Question type: where
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(8, 0.044), (22, 0.0433), (25, 0.0419), (21, 0.0416), (23, 0.0415), (9, 0.0409), (6, 0.0408), (20, 0.0406), (19, 0.0394), (4, 0.0393)]
+[readagent] +section 8 excerpted (3598/4747 tokens, rrf=0.0440, 12571 remaining)
+[readagent] +section 22 excerpted (3603/4795 tokens, rrf=0.0433, 8953 remaining)
+[readagent] +section 25 excerpted (3604/14650 tokens, rrf=0.0419, 5334 remaining)
+[readagent] +section 21 excerpted (3601/4565 tokens, rrf=0.0416, 1718 remaining)
+[readagent] +section 23 excerpted (1719/4462 tokens, rrf=0.0415, -16 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=What is the name of the ship captain who rescues Frankenstein from the ice?...
+[readagent] Phase 1 top 10: [(1, 0.0447), (25, 0.0445), (4, 0.032), (8, 0.0315), (6, 0.0315), (11, 0.0296), (7, 0.0295), (9, 0.0294), (19, 0.0294), (17, 0.0282)]
+[readagent] Question type: what
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(1, 0.0447), (25, 0.0445), (4, 0.032), (8, 0.0315), (6, 0.0315), (11, 0.0296), (7, 0.0295), (9, 0.0294), (19, 0.0294), (17, 0.0282)]
+[readagent] +section 1 excerpted (3608/7593 tokens, rrf=0.0447, 12561 remaining)
+[readagent] +section 25 excerpted (3607/14650 tokens, rrf=0.0445, 8939 remaining)
+[readagent] +section 4 full (3495 tokens, rrf=0.0320, 5444 remaining)
+[readagent] +section 8 excerpted (3597/4747 tokens, rrf=0.0315, 1832 remaining)
+[readagent] +section 6 excerpted (1829/3091 tokens, rrf=0.0315, -12 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=How does the novel end? What happens to the creature?...
+[readagent] Phase 1 top 10: [(25, 0.048), (24, 0.0471), (21, 0.0455), (23, 0.0453), (22, 0.0444), (17, 0.0432), (16, 0.0428), (19, 0.0417), (20, 0.0415), (18, 0.0405)]
+[readagent] Question type: how
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(25, 0.048), (24, 0.0471), (21, 0.0455), (23, 0.0453), (22, 0.0444), (17, 0.0432), (16, 0.0428), (19, 0.0417), (20, 0.0415), (18, 0.0405)]
+[readagent] +section 25 excerpted (6563/14650 tokens, rrf=0.0480, 9606 remaining)
+[readagent] +section 24 full (3319 tokens, rrf=0.0471, 6287 remaining)
+[readagent] +section 21 full (4565 tokens, rrf=0.0455, 1722 remaining)
+[readagent] +section 23 excerpted (1723/4462 tokens, rrf=0.0453, -16 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=What does Victor study at the university of Ingolstadt?...
+[readagent] Phase 1 top 10: [(4, 0.0445), (7, 0.0445), (5, 0.0428), (23, 0.0425), (8, 0.0424), (6, 0.0421), (3, 0.0395), (19, 0.039), (22, 0.0288), (25, 0.0286)]
+[readagent] Question type: what
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(4, 0.0445), (7, 0.0445), (5, 0.0428), (23, 0.0425), (8, 0.0424), (6, 0.0421), (3, 0.0395), (19, 0.039), (22, 0.0288), (25, 0.0286)]
+[readagent] +section 4 full (3495 tokens, rrf=0.0445, 12689 remaining)
+[readagent] +section 7 excerpted (3481/3630 tokens, rrf=0.0445, 9193 remaining)
+[readagent] +section 5 full (3258 tokens, rrf=0.0428, 5935 remaining)
+[readagent] +section 23 excerpted (3604/4462 tokens, rrf=0.0425, 2316 remaining)
+[readagent] +section 8 excerpted (2316/4747 tokens, rrf=0.0424, -15 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Starting: book=102109 tokens, budget=16384, sections=25, question=Who teaches the creature to read and speak? How does it learn?...
+[readagent] Phase 1 top 10: [(1, 0.0445), (6, 0.0424), (25, 0.0422), (7, 0.0406), (3, 0.0404), (13, 0.0403), (11, 0.0398), (12, 0.0398), (24, 0.0398), (9, 0.0393)]
+[readagent] Question type: who
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] Snippet terms response: 
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+[readagent] LLM response: 
+[readagent] LLM terms: [] (expanded=[], snippets=[])
+[readagent] Final top 10: [(1, 0.0445), (6, 0.0424), (25, 0.0422), (7, 0.0406), (3, 0.0404), (13, 0.0403), (11, 0.0398), (12, 0.0398), (24, 0.0398), (9, 0.0393)]
+[readagent] +section 1 excerpted (3613/7593 tokens, rrf=0.0445, 12556 remaining)
+[readagent] +section 6 full (3091 tokens, rrf=0.0424, 9465 remaining)
+[readagent] +section 25 excerpted (3605/14650 tokens, rrf=0.0422, 5845 remaining)
+[readagent] +section 7 excerpted (3605/3630 tokens, rrf=0.0406, 2225 remaining)
+[readagent] +section 3 excerpted (2198/2860 tokens, rrf=0.0404, 12 remaining)
+HTTP Request: POST http://localhost:8080/v1/chat/completions "HTTP/1.1 200 OK"
+Loading book...
+Book: 25 sections, 102109 tokens
+
+Label: readagent-final3
+Queries: 8
+======================================================================
+
+  Q1: How many chapters are there in this book? List all chapter numbers.
+    [PASS] score=1.0 time=252.2s
+    Response: There are **24 chapters** in this book.
+
+The chapter numbers are:
+
+**1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23...
+
+  Q2: Who is Justine Moritz and what happens to her?
+    [PASS] score=1.0 time=116.9s
+    Response: Justine Moritz is the daughter of Madame Moritz, a widow with four children, and she is the third of those children. Her mother, after the death of M....
+
+  Q3: What does the creature ask Frankenstein to create for him?
+    [PASS] score=1.0 time=71.8s
+    Response: The creature asks Frankenstein to create a companion for him — specifically, a female companion or mate....
+
+  Q4: Where does Clerval get murdered?
+    [PASS] score=1.0 time=101.9s
+    Response: Clerval is murdered in Ireland—his body is found on the Irish shore where Victor lands....
+
+  Q5: What is the name of the ship captain who rescues Frankenstein from the ice?
+    [PASS] score=1.0 time=68.0s
+    Response: The ship captain who rescues Frankenstein from the ice is **Captain Walton**....
+
+  Q6: How does the novel end? What happens to the creature?
+    [PASS] score=1.0 time=131.8s
+    Response: According to the provided text, the novel ends aboard **Walton’s ship in the far northern ice/sea**, at midnight, in and around the **cabin** where Fr...
+
+  Q7: What does Victor study at the university of Ingolstadt?
+    [PASS] score=1.0 time=83.1s
+    Response: Based on the provided text, Victor studies **natural philosophy, and particularly chemistry**, at the university of Ingolstadt. The text states: "From...
+
+  Q8: Who teaches the creature to read and speak? How does it learn?
+    [PASS] score=1.0 time=97.0s
+    Response: Based only on the provided text, the excerpts do **not** state who teaches the creature to read and speak, nor do they describe how it learns.
+
+The on...
+
+======================================================================
+TOTAL: 8/8 passed, avg score=1.00
+======================================================================
+
+Saved to /home/ransika/Documents/github/ctxpact/bench/results/benchmark_results_readagent-final3.json

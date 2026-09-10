@@ -1,0 +1,6 @@
+TURN 1 OK (104.0s) prompt_n=21843 cache_n=0
+TURN 2 OK (125.5s) prompt_n=44059 cache_n=0
+TURN 3 OK (105.5s) prompt_n=22564 cache_n=44055
+TURN 4 OK (133.7s) prompt_n=22588 cache_n=66615
+TURN 5 FAIL (381.1s): {"detail":"All providers failed. Attempted: ['llama.cpp', 'llama.cpp-instruct']. Check backend health and circuit breaker status."}
+  DIRECT also FAIL: {"error":{"code":400,"message":"request (111787 tokens) exceeds the available context size (106496 tokens), try increasing it","type":"exceed_context_size_error","n_prompt_tokens":111787,"n_ctx":106496}}

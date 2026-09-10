@@ -1,0 +1,4 @@
+{"seed": 0, "ttft_s": 2.179, "wall_s": 49.088, "prompt_n": 157, "gen_tps": 10.893685559373058, "predicted_n": 512, "draft_n": 533, "draft_accepted": 333, "tag": "nmax3"}
+{"seed": 1, "ttft_s": 1.64, "wall_s": 52.5, "prompt_n": 104, "gen_tps": 10.047357857511635, "predicted_n": 512, "draft_n": 574, "draft_accepted": 319, "tag": "nmax3"}
+{"seed": 2, "ttft_s": 1.657, "wall_s": 30.769, "prompt_n": 104, "gen_tps": 11.57640551303469, "predicted_n": 338, "draft_n": 327, "draft_accepted": 230, "tag": "nmax3"}
+AGG {"gen_tps": 10.89, "draft_accept_rate": 0.625, "avg_ttft_s": 1.66}

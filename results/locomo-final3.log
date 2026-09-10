@@ -1,0 +1,129 @@
+LoCoMo-MC10 Benchmark
+Label: locomo-final3
+Model: Qwen3.8-27B-GSQ-RCO-IQ3_XXS
+Questions: 20
+Types: {'adversarial': 4, 'multi_hop': 4, 'open_domain': 4, 'single_hop': 4, 'temporal_reasoning': 4}
+Strategy: readagent
+======================================================================
+ctxpact started (PID 1154844)
+
+  [1/20] conv-48_q206 (adversarial)
+    Q: How does Jolene plan to pursue her dream of climbing mountains?...
+    Context: ~20,755 tokens
+    [CORRECT] 71.3s | Predicted: #1 (Not answerable) | Correct: #1 (Not answerable)
+
+  [2/20] conv-30_q91 (adversarial)
+    Q: How is Jon's store doing?...
+    Context: ~11,969 tokens
+    [CORRECT] 47.0s | Predicted: #7 (Not answerable) | Correct: #7 (Not answerable)
+
+  [3/20] conv-26_q164 (adversarial)
+    Q: What kind of counseling workshop did Melanie attend recently?...
+    Context: ~16,033 tokens
+    [CORRECT] 41.7s | Predicted: #10 (Not answerable) | Correct: #10 (Not answerable)
+
+  [4/20] conv-49_q175 (adversarial)
+    Q: What kind of writing does Evan enjoy as a form of expression?...
+    Context: ~17,077 tokens
+    [CORRECT] 54.6s | Predicted: #9 (Not answerable) | Correct: #9 (Not answerable)
+
+  [5/20] conv-43_q37 (multi_hop)
+    Q: Which week did Tim visit the UK for the Harry Potter Conference?...
+    Context: ~23,490 tokens
+    [WRONG] 389.7s | Predicted: UNPARSED | Correct: #5 (The week before October 13th, 2023.)
+    Response: ...
+
+  [6/20] conv-42_q64 (multi_hop)
+    Q: When did Nate win a big Valorant tourney?...
+    Context: ~19,991 tokens
+    [CORRECT] 106.5s | Predicted: #10 (The Saturday before 7November, 2022) | Correct: #10 (The Saturday before 7November, 2022)
+
+  [7/20] conv-42_q37 (multi_hop)
+    Q: When did Nate win an international tournament?...
+    Context: ~19,991 tokens
+    [CORRECT] 55.3s | Predicted: #7 (21 August, 2022) | Correct: #7 (21 August, 2022)
+
+  [8/20] conv-41_q22 (multi_hop)
+    Q: When did John go to a convention with colleagues?...
+    Context: ~24,506 tokens
+    [CORRECT] 60.6s | Predicted: #7 (March 2023) | Correct: #7 (March 2023)
+
+  [9/20] conv-50_q71 (open_domain)
+    Q: How long did Calvin plan to stay in Japan?...
+    Context: ~22,059 tokens
+    [CORRECT] 52.7s | Predicted: #4 (A few months) | Correct: #4 (A few months)
+
+  [10/20] conv-30_q71 (open_domain)
+    Q: How does Gina describe the studio that Jon has opened?...
+    Context: ~11,969 tokens
+    [CORRECT] 35.3s | Predicted: #5 (amazing) | Correct: #5 (amazing)
+
+  [11/20] conv-49_q94 (open_domain)
+    Q: What kind of water does Evan suggest Sam try as an alternative to soda?...
+    Context: ~17,077 tokens
+    [CORRECT] 40.3s | Predicted: #2 (Flavored seltzer water) | Correct: #2 (Flavored seltzer water)
+
+  [12/20] conv-50_q75 (open_domain)
+    Q: What is Dave's new business venture as of 1 May, 2023?...
+    Context: ~22,059 tokens
+    [CORRECT] 52.6s | Predicted: #2 (Car maintenance shop) | Correct: #2 (Car maintenance shop)
+
+  [13/20] conv-50_q63 (single_hop)
+    Q: What style of guitars does Calvin own?...
+    Context: ~22,059 tokens
+    [CORRECT] 63.4s | Predicted: #7 (custom-made yellow guitar with an octopus on it, shiny purple guitar) | Correct: #7 (custom-made yellow guitar with an octopus on it, shiny purple guitar)
+
+  [14/20] conv-41_q3 (single_hop)
+    Q: What type of volunteering have John and Maria both done?...
+    Context: ~24,506 tokens
+    [CORRECT] 65.0s | Predicted: #7 (Volunteering at a homeless shelter) | Correct: #7 (Volunteering at a homeless shelter)
+
+  [15/20] conv-49_q3 (single_hop)
+    Q: How many Prius has Evan owned?...
+    Context: ~17,077 tokens
+    [CORRECT] 48.4s | Predicted: #1 (two) | Correct: #1 (two)
+
+  [16/20] conv-26_q43 (single_hop)
+    Q: What kind of art does Caroline make?...
+    Context: ~16,033 tokens
+    [CORRECT] 53.3s | Predicted: #9 (abstract art) | Correct: #9 (abstract art)
+
+  [17/20] conv-26_q27 (temporal_reasoning)
+    Q: Would Caroline pursue writing as a career option?...
+    Context: ~16,033 tokens
+    [CORRECT] 73.5s | Predicted: #6 (LIkely no; though she likes reading, she wants to be a counselor) | Correct: #6 (LIkely no; though she likes reading, she wants to be a counselor)
+
+  [18/20] conv-26_q77 (temporal_reasoning)
+    Q: Would Melanie go on another roadtrip soon?...
+    Context: ~16,033 tokens
+    [CORRECT] 46.9s | Predicted: #2 (Likely no; since this one went badly) | Correct: #2 (Likely no; since this one went badly)
+
+  [19/20] conv-42_q68 (temporal_reasoning)
+    Q: How many hikes has Joanna been on?...
+    Context: ~19,991 tokens
+    [WRONG] 176.4s | Predicted: UNPARSED | Correct: #6 (Four)
+    Response: ...
+
+  [20/20] conv-42_q84 (temporal_reasoning)
+    Q: Was the first half of September 2022 a good month career-wise for Nate and Joann...
+    Context: ~19,991 tokens
+    [CORRECT] 58.0s | Predicted: #3 (No; because both of them faced setbacks in their career) | Correct: #3 (No; because both of them faced setbacks in their career)
+
+======================================================================
+LoCoMo-MC10 — readagent Summary
+======================================================================
+Overall: 18/20 correct (90.0%)
+Random baseline: 10% (1/10 choices)
+
+Per-type accuracy:
+  adversarial                   : 4/4 (100%)
+  multi_hop                     : 3/4 (75%)
+  open_domain                   : 4/4 (100%)
+  single_hop                    : 4/4 (100%)
+  temporal_reasoning            : 3/4 (75%)
+
+Avg latency: 79.6s
+Avg prompt tokens: 19315
+
+Results saved to /home/ransika/Documents/github/ctxpact/bench/results/benchmark_results_locomo-final3.json
+Logs at /home/ransika/Documents/github/ctxpact/bench/logs/locomo-final3/

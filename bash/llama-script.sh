@@ -154,15 +154,32 @@ autoload() {
 kill_processes(){
     pkill llama
     pkill qdrant
-    pkill -f ctxpact
+    pkill -f 'ctxpact[.]server'
+    # Wait for ports to be released before the new serve tries to bind
+    for i in $(seq 1 90); do
+        busy=$(ss -tlnH 2>/dev/null | grep -cE ':(8080|8081|8000|6333) ')
+        [ "$busy" -eq 0 ] && break
+        sleep 1
+    done
+    # Escalate to SIGKILL if anything refuses to die
+    if [ "$busy" -ne 0 ]; then
+        pkill -9 llama
+        pkill -9 qdrant
+        for i in $(seq 1 30); do
+            busy=$(ss -tlnH 2>/dev/null | grep -cE ':(8080|8081|8000|6333) ')
+            [ "$busy" -eq 0 ] && break
+            sleep 1
+        done
+    fi
 }
 
 
 tools() {
     # Context compaction proxy
+    mkdir -p "$HOME/.ctxpact"
     nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
         && source .venv/bin/activate \
-        && python -m ctxpact.server --config config-${model}.yaml" > /dev/null 2>&1 &
+        && python -m ctxpact.server --config config-${model}.yaml" > "$HOME/temp/ctxpact-log.txt" 2>&1 &
     # Embedding model
     embedding_model_path="$HOME/applications/llama-cpp/models/${embedding_model}"
     nohup ptyxis -- bash -c "${command} \
@@ -197,13 +214,13 @@ main() {
     #   -b 8192 \
     #   -ub 4096 \
     command_args=(
-        -t 12
+        -t 8
         -b 1024
         -ub 512
         -fa on
         -ngl all
         -fit off
-        -td 12
+        -td 8
         -ctxcp 2
         -cram 4096
         --context-shift

@@ -1,0 +1,11 @@
+bench-suite start 09:25:43
+--- restart #1 ---
+health: 8080=200 8000=200 at 09:27:13
+--- readagent ---
+readagent done 09:36:53
+--- restart #2 ---
+health: 8080=200 8000=200 at 09:36:53
+--- locomo (20 Qs) ---
+locomo done 09:38:04
+longmemeval SKIPPED (dataset longmemeval_oracle.json not available locally)
+bench-suite finished 09:38:04
