@@ -51,7 +51,7 @@ circuit_breaker:
 compaction:
   enabled: true
   triggers:
-    token_ratio: 0.70
+    token_ratio: 0.60
     # message_count: 100
     # turn_count: 30
 
@@ -65,7 +65,7 @@ compaction:
   stage2_summarize:
     provider: "llama.cpp-instruct"
     model: null                  # uses the provider's model id
-    max_summary_tokens: 16384
+    max_summary_tokens: 8192
     retention_window: 6
     eviction_window: 0.30
     merge_strategy: "conservative"

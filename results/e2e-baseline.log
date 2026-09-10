@@ -1,0 +1,4 @@
+{"tag": "e2e-ctxpact-small", "ttft_s": 217.666, "wall_s": 364.763, "prompt_n": 65, "prefill_tps": 0.30533157357751317, "gen_tps": 0.42149663857110575, "predicted_n": 63, "session_id": "8a2865f6-ea2a-41f4-ba76-f808a1445cb3"}
+{"tag": "e2e-coding-direct", "ttft_s": 1.763, "wall_s": 12.587, "prompt_n": 202, "prefill_tps": 143.5109601167412, "gen_tps": 12.01096101824123, "predicted_n": 131, "session_id": null}
+{"tag": "e2e-compaction-trigger", "ttft_s": 30.655, "wall_s": 43.341, "prompt_n": 499, "prefill_tps": 267.0309846914722, "gen_tps": 10.721340457664066, "predicted_n": 137, "session_id": "54117212-abae-4c59-9aa5-472121cba07f"}
+SESSION FAIL HTTP Error 404: Not Found

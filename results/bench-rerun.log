@@ -1,0 +1,10 @@
+bench-rerun start 10:13:43
+--- full-stack restart ---
+health: 8080=200 8000=200 at 10:15:23
+--- readagent (max_tokens=4096) ---
+readagent done 10:29:48
+--- locomo 20 (local config) ---
+locomo done 10:49:10
+--- restore stack ctxpact ---
+ctxpact health: 200
+bench-rerun finished 10:49:14

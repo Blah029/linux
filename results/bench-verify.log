@@ -1,0 +1,10 @@
+bench-verify start 10:56:35
+--- full-stack restart ---
+health: 8080=200 8000=200 at 10:58:05
+--- readagent (budget=16384) ---
+readagent done 11:13:28
+--- locomo 20 (max_tokens=4096) ---
+locomo done 11:40:05
+--- restore stack ctxpact ---
+ctxpact health: 200
+bench-verify finished 11:40:10

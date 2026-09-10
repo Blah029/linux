@@ -1,0 +1,3 @@
+{"tag": "e2e-ctxpact-small-warm", "ttft_s": 2.623, "wall_s": 11.794, "prompt_n": 65, "prefill_tps": 47.037845927173834, "gen_tps": 11.340112321631754, "predicted_n": 105}
+{"tag": "e2e-compaction-trigger-2", "ttft_s": 17.399, "wall_s": 23.948, "prompt_n": 457, "prefill_tps": 415.21372149607777, "gen_tps": 34.49882894793684, "predicted_n": 227}
+SESSION not found after polling

@@ -1,0 +1,9 @@
+{"event": "start", "session_id": "compact-test-9957d85893b3"}
+{"event": "turn", "turn": 1, "wall_s": 49.6, "prompt_n": 15074, "prefill_tps": 399.7, "gen_tps": 11.8, "predicted_n": 131, "cache_n": 0, "response_start": "I have read the passage about the fox, the old mill, and the systems design samp"}
+{"event": "session_state", "turn": 1, "session_tokens": null, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 2, "wall_s": 54.6, "prompt_n": 15043, "prefill_tps": 316.7, "gen_tps": 11.5, "predicted_n": 81, "cache_n": 15070, "response_start": "I've read the passage, which repeats the pangram about the fox and a note on sys"}
+{"event": "session_state", "turn": 2, "session_tokens": null, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 3, "error": "HTTP Error 503: Service Unavailable"}
+{"event": "post-compaction-turn", "wall_s": 279.8, "prompt_n": 45133, "prefill_tps": 355.8, "gen_tps": 19.6, "predicted_n": 20, "response_start": "The last passage consisted of a repeated pangram about a fox and a statement regarding systems design."}
+{"event": "final", "session_tokens": null, "compaction_events": [], "error": null}
+DONE

@@ -1,0 +1,122 @@
+LoCoMo-MC10 Benchmark
+Label: locomo-readagent-qwen35
+Model: Qwen3.8-27B-GSQ-RCO-IQ3_XXS
+Questions: 20
+Types: {'adversarial': 4, 'multi_hop': 4, 'open_domain': 4, 'single_hop': 4, 'temporal_reasoning': 4}
+Strategy: readagent
+======================================================================
+ctxpact started (PID 1075569)
+
+  [1/20] conv-48_q206 (adversarial)
+    Q: How does Jolene plan to pursue her dream of climbing mountains?...
+    Context: ~20,755 tokens
+    [ERROR] 5.7s: HTTP Error 503: Service Unavailable
+
+  [2/20] conv-30_q91 (adversarial)
+    Q: How is Jon's store doing?...
+    Context: ~11,969 tokens
+    [ERROR] 0.0s: HTTP Error 503: Service Unavailable
+
+  [3/20] conv-26_q164 (adversarial)
+    Q: What kind of counseling workshop did Melanie attend recently?...
+    Context: ~16,033 tokens
+    [ERROR] 3.0s: HTTP Error 503: Service Unavailable
+
+  [4/20] conv-49_q175 (adversarial)
+    Q: What kind of writing does Evan enjoy as a form of expression?...
+    Context: ~17,077 tokens
+    [ERROR] 3.7s: HTTP Error 503: Service Unavailable
+
+  [5/20] conv-43_q37 (multi_hop)
+    Q: Which week did Tim visit the UK for the Harry Potter Conference?...
+    Context: ~23,490 tokens
+    [ERROR] 3.6s: HTTP Error 503: Service Unavailable
+
+  [6/20] conv-42_q64 (multi_hop)
+    Q: When did Nate win a big Valorant tourney?...
+    Context: ~19,991 tokens
+    [ERROR] 3.8s: HTTP Error 503: Service Unavailable
+
+  [7/20] conv-42_q37 (multi_hop)
+    Q: When did Nate win an international tournament?...
+    Context: ~19,991 tokens
+    [ERROR] 3.4s: HTTP Error 503: Service Unavailable
+
+  [8/20] conv-41_q22 (multi_hop)
+    Q: When did John go to a convention with colleagues?...
+    Context: ~24,506 tokens
+    [ERROR] 4.0s: HTTP Error 503: Service Unavailable
+
+  [9/20] conv-50_q71 (open_domain)
+    Q: How long did Calvin plan to stay in Japan?...
+    Context: ~22,059 tokens
+    [ERROR] 3.2s: HTTP Error 503: Service Unavailable
+
+  [10/20] conv-30_q71 (open_domain)
+    Q: How does Gina describe the studio that Jon has opened?...
+    Context: ~11,969 tokens
+    [ERROR] 0.0s: HTTP Error 503: Service Unavailable
+
+  [11/20] conv-49_q94 (open_domain)
+    Q: What kind of water does Evan suggest Sam try as an alternative to soda?...
+    Context: ~17,077 tokens
+    [ERROR] 3.4s: HTTP Error 503: Service Unavailable
+
+  [12/20] conv-50_q75 (open_domain)
+    Q: What is Dave's new business venture as of 1 May, 2023?...
+    Context: ~22,059 tokens
+    [ERROR] 3.5s: HTTP Error 503: Service Unavailable
+
+  [13/20] conv-50_q63 (single_hop)
+    Q: What style of guitars does Calvin own?...
+    Context: ~22,059 tokens
+    [ERROR] 3.9s: HTTP Error 503: Service Unavailable
+
+  [14/20] conv-41_q3 (single_hop)
+    Q: What type of volunteering have John and Maria both done?...
+    Context: ~24,506 tokens
+    [ERROR] 3.8s: HTTP Error 503: Service Unavailable
+
+  [15/20] conv-49_q3 (single_hop)
+    Q: How many Prius has Evan owned?...
+    Context: ~17,077 tokens
+    [ERROR] 3.3s: HTTP Error 503: Service Unavailable
+
+  [16/20] conv-26_q43 (single_hop)
+    Q: What kind of art does Caroline make?...
+    Context: ~16,033 tokens
+    [ERROR] 3.4s: HTTP Error 503: Service Unavailable
+
+  [17/20] conv-26_q27 (temporal_reasoning)
+    Q: Would Caroline pursue writing as a career option?...
+    Context: ~16,033 tokens
+    [ERROR] 3.1s: HTTP Error 503: Service Unavailable
+
+  [18/20] conv-26_q77 (temporal_reasoning)
+    Q: Would Melanie go on another roadtrip soon?...
+    Context: ~16,033 tokens
+    [ERROR] 3.1s: HTTP Error 503: Service Unavailable
+
+  [19/20] conv-42_q68 (temporal_reasoning)
+    Q: How many hikes has Joanna been on?...
+    Context: ~19,991 tokens
+    [ERROR] 3.6s: HTTP Error 503: Service Unavailable
+
+  [20/20] conv-42_q84 (temporal_reasoning)
+    Q: Was the first half of September 2022 a good month career-wise for Nate and Joann...
+    Context: ~19,991 tokens
+    [ERROR] 3.4s: HTTP Error 503: Service Unavailable
+
+======================================================================
+LoCoMo-MC10 — readagent Summary
+======================================================================
+Overall: 0/20 correct (0.0%)
+Random baseline: 10% (1/10 choices)
+
+Per-type accuracy:
+
+Avg latency: 3.3s
+Avg prompt tokens: 0
+
+Results saved to /home/ransika/Documents/github/ctxpact/bench/results/benchmark_results_locomo-readagent-qwen35.json
+Logs at /home/ransika/Documents/github/ctxpact/bench/logs/locomo-readagent-qwen35/

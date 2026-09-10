@@ -1,0 +1,16 @@
+{"event": "start", "session_id": "compact-v2-cc4fd5819355"}
+{"event": "turn", "turn": 1, "wall_s": 62.9, "prompt_n": 21887, "prefill_tps": 417.3, "gen_tps": 10.7, "predicted_n": 96, "cache_n": 0}
+{"event": "session_state", "turn": 1, "total_input_tokens": 21887, "total_output_tokens": 96, "user_turn_count": 1, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 2, "wall_s": 161.2, "prompt_n": 44026, "prefill_tps": 342.9, "gen_tps": 1.4, "predicted_n": 10, "cache_n": 0}
+{"event": "session_state", "turn": 2, "total_input_tokens": 65913, "total_output_tokens": 106, "user_turn_count": 2, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 3, "wall_s": 300.3, "prompt_n": 66633, "prefill_tps": 279.7, "gen_tps": 0.9, "predicted_n": 53, "cache_n": 0}
+{"event": "session_state", "turn": 3, "total_input_tokens": 132546, "total_output_tokens": 159, "user_turn_count": 3, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 4, "wall_s": 279.5, "prompt_n": 45135, "prefill_tps": 194.2, "gen_tps": 26.1, "predicted_n": 10, "cache_n": 44035}
+{"event": "session_state", "turn": 4, "total_input_tokens": 221716, "total_output_tokens": 169, "user_turn_count": 4, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 5, "wall_s": 377.2, "prompt_n": 90253, "prefill_tps": 248.9, "gen_tps": 20.6, "predicted_n": 68, "cache_n": 0}
+{"event": "session_state", "turn": 5, "total_input_tokens": 311969, "total_output_tokens": 237, "user_turn_count": 5, "compaction_count": 1, "last_event": {"trigger": "token_count=77103 >= threshold=63897", "tokens_before": 77103, "tokens_after": 62357, "stage": "dcp_and_summarize"}, "error": null}
+{"event": "turn", "turn": 6, "wall_s": 386.7, "prompt_n": 90800, "prefill_tps": 247.9, "gen_tps": 20.8, "predicted_n": 62, "cache_n": 0}
+{"event": "session_state", "turn": 6, "total_input_tokens": 402769, "total_output_tokens": 299, "user_turn_count": 6, "compaction_count": 2, "last_event": {"trigger": "token_count=92723 >= threshold=63897", "tokens_before": 92723, "tokens_after": 62891, "stage": "dcp_and_summarize"}, "error": null}
+{"event": "post-compaction-turn", "wall_s": 387.3, "prompt_n": 90814, "prefill_tps": 247.7, "gen_tps": 23.4, "predicted_n": 162, "response_start": "The most recent record (sentences 3000\u20133599) consists of 600 sequential entries where subsystems 0\u201396 cycle in order, ea"}
+{"event": "final", "total_input_tokens": 493583, "compaction_events": [{"trigger": "token_count=77103 >= threshold=63897", "tokens_before": 77103, "tokens_after": 62357, "stage": "dcp_and_summarize"}, {"trigger": "token_count=92723 >= threshold=63897", "tokens_before": 92723, "tokens_after": 62891, "stage": "dcp_and_summarize"}, {"trigger": "token_count=92752 >= threshold=63897", "tokens_before": 92752, "tokens_after": 62892, "stage": "dcp_and_summarize"}], "error": null}
+DONE

@@ -1,0 +1,42 @@
+[12:51:53] TUNED-AB START profile-requested=throughput-performance active=throughput-performance
+[12:53:23] stopped llama servers
+[12:53:25] VRAM free: 468807680 B
+[12:53:25] BENCH T-throughput-performance: args=-t 8 -b 1024 -ub 512 -ctk q5_0 -ctv q5_0
+[T-throughput-performance] WARNING: radv is not a conformant Vulkan implementation, testing use only.
+[T-throughput-performance] ggml_vulkan: Found 1 Vulkan devices:
+[T-throughput-performance] ggml_vulkan: 0 = AMD Radeon RX 9060 XT (RADV GFX1200) (radv) | uma: 0 | fp16: dot2 | bf16: 1 | fp4: 0 | warp size: 64 | shared memory: 65536 | int dot: 1 | matrix cores: KHR_coopmat
+[T-throughput-performance] | model                          |       size |     params | backend    | ngl | threads | n_batch | type_k | type_v |  fa |            test |                  t/s |
+[T-throughput-performance] | ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | -----: | -----: | --: | --------------: | -------------------: |
+[T-throughput-performance] | qwen35 27B IQ3_S - 3.4375 bpw  |   9.72 GiB |    27.32 B | Vulkan     | 9999 |       8 |    1024 |   q5_0 |   q5_0 |   1 |           pp512 |        629.14 ± 0.37 |
+[T-throughput-performance] 
+[T-throughput-performance] build: 50f068fff (10679)
+[T-throughput-performance] WARNING: radv is not a conformant Vulkan implementation, testing use only.
+[T-throughput-performance] ggml_vulkan: Found 1 Vulkan devices:
+[T-throughput-performance] ggml_vulkan: 0 = AMD Radeon RX 9060 XT (RADV GFX1200) (radv) | uma: 0 | fp16: dot2 | bf16: 1 | fp4: 0 | warp size: 64 | shared memory: 65536 | int dot: 1 | matrix cores: KHR_coopmat
+[T-throughput-performance] | model                          |       size |     params | backend    | ngl | threads | n_batch | type_k | type_v |  fa |            test |                  t/s |
+[T-throughput-performance] | ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | -----: | -----: | --: | --------------: | -------------------: |
+[T-throughput-performance] | qwen35 27B IQ3_S - 3.4375 bpw  |   9.72 GiB |    27.32 B | Vulkan     | 9999 |       8 |    1024 |   q5_0 |   q5_0 |   1 |          pp1024 |        624.34 ± 0.58 |
+[T-throughput-performance] 
+[T-throughput-performance] build: 50f068fff (10679)
+[T-throughput-performance] WARNING: radv is not a conformant Vulkan implementation, testing use only.
+[T-throughput-performance] ggml_vulkan: Found 1 Vulkan devices:
+[T-throughput-performance] ggml_vulkan: 0 = AMD Radeon RX 9060 XT (RADV GFX1200) (radv) | uma: 0 | fp16: dot2 | bf16: 1 | fp4: 0 | warp size: 64 | shared memory: 65536 | int dot: 1 | matrix cores: KHR_coopmat
+[T-throughput-performance] | model                          |       size |     params | backend    | ngl | threads | n_batch | type_k | type_v |  fa |            test |                  t/s |
+[T-throughput-performance] | ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | -----: | -----: | --: | --------------: | -------------------: |
+[T-throughput-performance] | qwen35 27B IQ3_S - 3.4375 bpw  |   9.72 GiB |    27.32 B | Vulkan     | 9999 |       8 |    1024 |   q5_0 |   q5_0 |   1 |          pp8192 |        566.46 ± 0.21 |
+[T-throughput-performance] 
+[T-throughput-performance] build: 50f068fff (10679)
+[T-throughput-performance] WARNING: radv is not a conformant Vulkan implementation, testing use only.
+[T-throughput-performance] ggml_vulkan: Found 1 Vulkan devices:
+[T-throughput-performance] ggml_vulkan: 0 = AMD Radeon RX 9060 XT (RADV GFX1200) (radv) | uma: 0 | fp16: dot2 | bf16: 1 | fp4: 0 | warp size: 64 | shared memory: 65536 | int dot: 1 | matrix cores: KHR_coopmat
+[T-throughput-performance] | model                          |       size |     params | backend    | ngl | threads | n_batch | type_k | type_v |  fa |            test |                  t/s |
+[T-throughput-performance] | ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | -----: | -----: | --: | --------------: | -------------------: |
+[T-throughput-performance] | qwen35 27B IQ3_S - 3.4375 bpw  |   9.72 GiB |    27.32 B | Vulkan     | 9999 |       8 |    1024 |   q5_0 |   q5_0 |   1 |           tg128 |         24.62 ± 0.06 |
+[T-throughput-performance] 
+[T-throughput-performance] build: 50f068fff (10679)
+[12:55:08] RESTORE: starting llama-script.sh -a
+[12:55:16] port 8080 healthy
+[12:55:16] port 8081 healthy
+[12:55:16] port 8000 healthy
+[12:55:16] VRAM used: 15734902784
+[12:55:16] TUNED-AB DONE throughput-performance Thu 10 Sep 12:55:16 +0530 2026

@@ -1,0 +1,13 @@
+{"event": "start", "session_id": "compact-v2-38efe034b965"}
+{"event": "turn", "turn": 1, "wall_s": 53.4, "prompt_n": 21887, "prefill_tps": 440.5, "gen_tps": 25.5, "predicted_n": 83, "cache_n": 0}
+{"event": "session_state", "turn": 1, "total_input_tokens": 21887, "total_output_tokens": 83, "user_turn_count": 1, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 2, "wall_s": 80.2, "prompt_n": 22179, "prefill_tps": 297.3, "gen_tps": 24.8, "predicted_n": 118, "cache_n": 21883}
+{"event": "session_state", "turn": 2, "total_input_tokens": 65949, "total_output_tokens": 201, "user_turn_count": 2, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 3, "wall_s": 105.3, "prompt_n": 22583, "prefill_tps": 219.5, "gen_tps": 25.9, "predicted_n": 61, "cache_n": 44058}
+{"event": "session_state", "turn": 3, "total_input_tokens": 132590, "total_output_tokens": 262, "user_turn_count": 3, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 4, "wall_s": 131.0, "prompt_n": 22586, "prefill_tps": 174.6, "gen_tps": 24.5, "predicted_n": 37, "cache_n": 66637}
+{"event": "session_state", "turn": 4, "total_input_tokens": 221813, "total_output_tokens": 299, "user_turn_count": 4, "compaction_count": 0, "last_event": null, "error": null}
+{"event": "turn", "turn": 5, "error": "HTTP Error 503: Service Unavailable"}
+{"event": "post-compaction-turn", "error": "HTTP Error 503: Service Unavailable"}
+{"event": "final", "total_input_tokens": 221813, "compaction_events": [{"trigger": "token_count=77117 >= threshold=63897", "tokens_before": 77117, "tokens_after": 62429, "stage": "dcp_and_summarize"}, {"trigger": "token_count=77133 >= threshold=63897", "tokens_before": 77133, "tokens_after": 47377, "stage": "dcp_and_summarize"}], "error": null}
+DONE
