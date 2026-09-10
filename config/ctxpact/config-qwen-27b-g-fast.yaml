@@ -12,7 +12,7 @@ providers:
     api_key: "none"
     max_context: 106496
     priority: 1
-    timeout_seconds: 180
+    timeout_seconds: 600
     connect_timeout_seconds: 5
     stream_timeout_seconds: null
     health_check:
@@ -26,7 +26,7 @@ providers:
     api_key: "none"
     max_context: 106496
     priority: 2
-    timeout_seconds: 180
+    timeout_seconds: 600
     connect_timeout_seconds: 5
     stream_timeout_seconds: null
     sampling_params:
@@ -51,7 +51,7 @@ circuit_breaker:
 compaction:
   enabled: true
   triggers:
-    token_ratio: 0.70
+    token_ratio: 0.60
     # message_count: 100
     # turn_count: 30
 
@@ -65,7 +65,7 @@ compaction:
   stage2_summarize:
     provider: "llama.cpp-instruct"
     model: null                  # uses the provider's model id
-    max_summary_tokens: 16384
+    max_summary_tokens: 8192
     retention_window: 6
     eviction_window: 0.30
     merge_strategy: "conservative"
