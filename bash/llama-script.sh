@@ -142,7 +142,7 @@ autoload() {
             command_args+=(
                 ${qwen_args[@]}
                 -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
-                -c 176403
+                -c 163840
                 
             )
             ;;
