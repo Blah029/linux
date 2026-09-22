@@ -8,9 +8,9 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
     -h, --help                  Print help and exit
-    -i, --interface [interface] Network interface. Defalut 1
+    -i, --interface [interface] Network interface. Default 1
                                     0 - eno1 (ethernet)
-                                    1 - wlp5s0 (wifi)
+                                    1 - wlan0 (wifi)
                                     empty - all interfaces
     -y, --year <year>           Filter by year. Default current year
     -m, --month <month>         Filter by month. Default current month
@@ -96,7 +96,12 @@ main() {
     vnstat --json h > "${json_raw}"
 
     # Process hourly data
-    jq -r '
+    jq -r \
+        --arg interface "${interface}" \
+        --argjson year "${year}" \
+        --argjson month "${month}" \
+        --argjson start_hour "${start_hour}" \
+        --argjson end_hour "${end_hour}" '
         def to_human:
             if . == null then {value: 0, unit: "KB"}
             elif . >= 1073741824 then {value: ((. / 1073741824 * 100 | floor) / 100), unit: "GB"}
@@ -110,29 +115,30 @@ main() {
         def format_value(v):
             (v | to_human) as $h
             | "\(($h.value | tostring | split(".")[0] | pad_left(3))).\($h.value | tostring | split(".")[1] // "0" | .[0:1]) \($h.unit)";
-        .interfaces['${interface}'] | {
-            name: .name,
-            daily: (
-                .traffic.hour
-                | map(select(.date.year == '${year}' and .date.month == '${month}'))
-                | group_by(.date)
-                | map({
-                    date: .[0].date,
-                    rx: (map(select(.time.hour >= '${start_hour}' and .time.hour <= '${end_hour}') | .rx) | add),
-                    tx: (map(select(.time.hour >= '${start_hour}' and .time.hour <= '${end_hour}') | .tx) | add),
-                    total: (map(select(.time.hour >= '${start_hour}' and .time.hour <= '${end_hour}') | (.rx + .tx)) | add) 
-                })
-            ),
-            monthly: (
-                .traffic.hour
-                | map(select(.date.year == '${year}' and .date.month == '${month}' and .time.hour >= '${start_hour}' and .time.hour <= '${end_hour}'))
+        (if $interface == "" then .interfaces else [.interfaces[$interface | tonumber]] end)[]
+        | (.traffic.hour
+            | map(select(.date.year == $year and .date.month == $month))
+            | group_by(.date)
+            | map(
+                . as $g
+                | ($g | map(select(.time.hour >= $start_hour and .time.hour <= $end_hour))) as $sel
                 | {
-                    rx: (map(.rx) | add),
-                    tx: (map(.tx) | add),
-                    total: (map(.rx + .tx) | add)
-                }
-            )
-        }
+                    date: $g[0].date,
+                    rx: ($sel | map(.rx) | add),
+                    tx: ($sel | map(.tx) | add),
+                    total: ($sel | map(.rx + .tx) | add)
+                  }
+              )
+          ) as $daily
+        | {
+            name: .name,
+            daily: $daily,
+            monthly: ($daily | {
+                rx: (map(.rx) | add),
+                tx: (map(.tx) | add),
+                total: (map(.total) | add)
+              })
+          }
         | "Interface:     \(.name)",
         "",
         (
@@ -141,7 +147,7 @@ main() {
         ),
         "",
         "Monthly Total: RX: \(format_value(.monthly.rx)) | TX: \(format_value(.monthly.tx)) | Total: \(format_value(.monthly.total))"
-    ' $HOME/temp/vnstat_raw.json
+    ' "${json_raw}"
 }
 
 
