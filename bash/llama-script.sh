@@ -156,10 +156,9 @@ autoload() {
         "qwen-27b-g-long") command_args+=(
             ${qwen_args[@]}
             -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
-            -m "${model_dir}/qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf"
-            -md "${model_dir}/qwen/hermihg/Qwen3.8-27B-DFlash2-Q2_K_S-MIX.gguf"
+            -m "${model_dir}/qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
             -mm "${model_dir}/qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
-            --spec-type "draft-dflash"
+            --spec-type "draft-mtp"
             -c 163840
         );;
         *) die "Incorrect model name: ${model}";;
