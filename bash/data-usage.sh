@@ -3,7 +3,7 @@
 
 usage() {
     cat << EOF
-Filter vnstat daily usage data within specified hours.
+Filter vnstat daily usage data within the billing period and specified hours.
 Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
@@ -12,8 +12,12 @@ Options:
                                     0 - eno1 (ethernet)
                                     1 - wlan0 (wifi)
                                     empty - all interfaces
-    -y, --year <year>           Filter by year. Default current year
-    -m, --month <month>         Filter by month. Default current month
+    -y, --year <year>           Filter by year. Default start year of the billing period
+    -m, --month <month>         Filter by month. Default start month of the billing period
+    -r, --renew <date>          Renewal day of the month. Default 24
+                                The billing period starts on this day, of the
+                                current month if today is past it, otherwise
+                                of the previous month
     -s, --start-hour <hour>     Filter by starting hour. Default 7
     -e, --end-hour <hour>       Filter by ending hour. Default 23
     -j, --json-raw <path>       Path to vnstat output. Default ~/temp/vnstat_raw.json
@@ -32,12 +36,13 @@ die() {
 parse_arguments() {
     # Defaults
     interface=1
-    year=$(date +%Y)
-    month=$(date +%-m)
+    renew_date=24
     start_hour=7
     end_hour=23
     json_raw="$HOME/temp/vnstat_raw.json"
-    
+    year=""
+    month=""
+
     # Parse flags and named parameters
     while :; do
         case "${1-}" in
@@ -52,6 +57,10 @@ parse_arguments() {
                 ;;
             -m | --month)
                 month="${2-}"
+                shift
+                ;;
+            -r | --renew)
+                renew_date="${2-}"
                 shift
                 ;;
             -s | --start-hour)
@@ -77,6 +86,36 @@ parse_arguments() {
     # Parse positional parameters
     args=("$@")
 
+    # Validate renewal day
+    [[ "${renew_date}" =~ ^[0-9]+$ ]] || die "Invalid renewal day: ${renew_date}"
+    (( renew_date >= 1 && renew_date <= 31 )) || die "Invalid renewal day: ${renew_date}"
+
+    # Determine the start of the billing period (renewal day of the current or
+    # previous month, unless year/month are given explicitly)
+    if [[ -z "${year}" || -z "${month}" ]]; then
+        cur_year=$(date +%Y)
+        cur_month=$(date +%-m)
+        cur_day=$(date +%-d)
+        if (( cur_day >= renew_date )); then
+            period_year=$cur_year
+            period_month=$cur_month
+        else
+            period_year=$cur_year
+            period_month=$(( cur_month - 1 ))
+            (( period_month == 0 )) && { period_month=12; ((period_year--)); }
+        fi
+        [[ -z "${year}" ]] && year=$period_year
+        [[ -z "${month}" ]] && month=$period_month
+    fi
+
+    # Billing period: from the renewal day of the start month, up to (not
+    # including) the renewal day of the following month
+    start_serial=$(( year * 10000 + month * 100 + renew_date ))
+    end_month=$(( month + 1 ))
+    end_year=$year
+    (( end_month > 12 )) && { end_month=1; ((end_year++)); }
+    end_serial=$(( end_year * 10000 + end_month * 100 + renew_date ))
+
     # Check for required named parameters
     #[[ -z "${interface-}" ]] && die "Missing required parameter: --interface"    # Leave empty for all interfaces
     [[ -z "${year-}" ]] && die "Missing required parameter: --year"
@@ -98,8 +137,8 @@ main() {
     # Process hourly data
     jq -r \
         --arg interface "${interface}" \
-        --argjson year "${year}" \
-        --argjson month "${month}" \
+        --argjson start_serial "${start_serial}" \
+        --argjson end_serial "${end_serial}" \
         --argjson start_hour "${start_hour}" \
         --argjson end_hour "${end_hour}" '
         def to_human:
@@ -117,7 +156,10 @@ main() {
             | "\(($h.value | tostring | split(".")[0] | pad_left(3))).\($h.value | tostring | split(".")[1] // "0" | .[0:1]) \($h.unit)";
         (if $interface == "" then .interfaces else [.interfaces[$interface | tonumber]] end)[]
         | (.traffic.hour
-            | map(select(.date.year == $year and .date.month == $month))
+            | map(select(
+                (.date.year * 10000 + .date.month * 100 + .date.day) >= $start_serial
+                and (.date.year * 10000 + .date.month * 100 + .date.day) < $end_serial
+              ))
             | group_by(.date)
             | map(
                 . as $g
@@ -133,7 +175,7 @@ main() {
         | {
             name: .name,
             daily: $daily,
-            monthly: ($daily | {
+            period: ($daily | {
                 rx: (map(.rx) | add),
                 tx: (map(.tx) | add),
                 total: (map(.total) | add)
@@ -146,7 +188,7 @@ main() {
             | "\(.date.year)-\(.date.month | tostring | if length == 1 then "0" + . else . end)-\(.date.day | tostring | if length == 1 then "0" + . else . end):    RX: \(format_value(.rx)) | TX: \(format_value(.tx)) | Total: \(format_value(.total))"
         ),
         "",
-        "Monthly Total: RX: \(format_value(.monthly.rx)) | TX: \(format_value(.monthly.tx)) | Total: \(format_value(.monthly.total))"
+        "Period Total: RX: \(format_value(.period.rx)) | TX: \(format_value(.period.tx)) | Total: \(format_value(.period.total))"
     ' "${json_raw}"
 }
 
