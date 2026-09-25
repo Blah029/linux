@@ -156,7 +156,7 @@ main() {
                 (.date.year * 10000 + .date.month * 100 + .date.day) >= $start_date
                 and (.date.year * 10000 + .date.month * 100 + .date.day) < $end_date
               ))
-            | group_by(.date)
+            | group_by(.date.year * 10000 + .date.month * 100 + .date.day)
             | map(
                 . as $g
                 | ($g | map(select(.time.hour >= $start_hour and .time.hour <= $end_hour))) as $sel
