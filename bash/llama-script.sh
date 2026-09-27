@@ -37,6 +37,7 @@ parse_arguments() {
     all_flag=false
     command_source="huggingface"
     model="qwen-27b-g-fast"
+    ctxpact_model="${model}"
     
     # Parse flags and named parameters
     while :; do
@@ -82,7 +83,7 @@ tools() {
     # Context compaction proxy
     nohup ptyxis -- bash -c "cd $HOME/Documents/github/ctxpact \
         && source .venv/bin/activate \
-        && python -m ctxpact.server --config config-${model}.yaml" > /dev/null 2>&1 &
+        && python -m ctxpact.server --config config-${ctxpact_model}.yaml" > /dev/null 2>&1 &
     # Embedding model
     nohup ptyxis -- bash -c "${command} \
         -a nomic-embed-text-v1 \
@@ -157,10 +158,31 @@ autoload() {
             ${qwen_args[@]}
             -a "Qwen3.8-27B-GSQ-RCO-IQ3_S"
             -m "${model_dir}/qwen/ista-daslab/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
-            -mm "${model_dir}/qwen/empero-ai/mmproj-Qwen3.8-27B-BF16.gguf"
+            -mm "${model_dir}/qwen/ista-daslab/mmproj-Qwen3.8-27B-BF16.gguf"
             --spec-type "draft-mtp"
             -c 163840
         );;
+        "qwen-27b-s-fast")
+            command_args+=(
+                ${qwen_args[@]}
+                -a "Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_XXS"
+                -m "${model_dir}/qwen/ukisai/Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf"
+                --spec-type "draft-mtp"
+                -c 106496
+            )
+            ctxpact_model="qwen-27b-g-fast"
+            ;;
+        "qwen-27b-s-long")
+            command_args+=(
+                ${qwen_args[@]}
+                -a "Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_S"
+                -m "${model_dir}/qwen/ukisai/Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+                -mm "${model_dir}/qwen/ista-daslab/mmproj-Qwen3.8-27B-BF16.gguf"
+                --spec-type "draft-mtp"
+                -c 163840
+            )
+            ctxpact_model="qwen-27b-g-long"
+            ;;
         *) die "Incorrect model name: ${model}";;
     esac
 }
