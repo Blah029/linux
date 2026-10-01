@@ -52,6 +52,10 @@ parse_arguments() {
 main() {
     image="pi-sandbox"
     docker_directory="$HOME/applications/pi-coding-agent"
+    build_context=(
+        "$HOME/Documents/github/linux/docker/pi-coding-agent/Dockerfile.pi"
+        "$HOME/Documents/github/linux/config/vim/.vimrc"
+    )
 
     # Set read/write permissions
     if [[ $write_flag == true ]]; then
@@ -61,6 +65,10 @@ main() {
     fi
     # Rebuild image on flag
     if [[ $build_flag == true ]]; then
+        echo -e "Updating build context"
+        for build_file in ${build_context[@]}; do(
+            cp "${build_file}" "${docker_directory}/"
+        ); done
         echo -e "Building image $image\n"
         docker build -t "$image" -f "$docker_directory/Dockerfile.pi" "$docker_directory"
     fi

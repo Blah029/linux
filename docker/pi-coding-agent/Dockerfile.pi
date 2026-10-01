@@ -1,6 +1,6 @@
 FROM fedora:44
 
-RUN dnf install -y bash ca-certificates git nodejs npm ripgrep \
+RUN dnf install -y bash ca-certificates git nodejs npm ripgrep vim \
     && dnf clean all
 RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
