@@ -58,9 +58,9 @@ parse_arguments() {
 
 main() {
     # Check tracks
-    if [ "${tracks}" -eq 0 ]; then
+    if [[ "${tracks}" -eq 0 ]]; then
         tracks=$(ffprobe -v error -select_streams a -show_entries stream=index -of csv=p=0 "${args[0]}" | wc -l)
-        if [ "${tracks}" -eq 0 ]; then
+        if [[ "${tracks}" -eq 0 ]]; then
             die "No audio streams found in ${args[0]}"
         fi
     fi

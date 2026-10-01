@@ -221,14 +221,14 @@ main() {
     # Load model preferences
     autoload
     # Act on flags
-    if [ $llama_help_flag == true ]; then
+    if [[ $llama_help_flag == true ]]; then
         command_args=(--help)
         all_flag=false
     fi
-    if [ $verbose_flag == true ]; then
+    if [[ $verbose_flag == true ]]; then
         command_args+=(-lv 4)
     fi
-    if [ $all_flag == true ]; then
+    if [[ $all_flag == true ]]; then
         kill_processes
         tools
     fi

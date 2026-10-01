@@ -63,7 +63,7 @@ main() {
     $test_gpu && mangohud "$HOME/applications/furmark/FurMark_GUI" & pids+=($!)
 
     # Wait for all launched processes
-    if [ ${#pids[@]} -gt 0 ]; then
+    if [[ ${#pids[@]} -gt 0 ]]; then
         wait "${pids[@]}"
     fi
 
