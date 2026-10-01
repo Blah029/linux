@@ -1,0 +1,8 @@
+FROM fedora:44
+
+RUN dnf install -y bash ca-certificates git nodejs npm ripgrep \
+    && dnf clean all
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+
+WORKDIR /workspace
+ENTRYPOINT ["pi"]
