@@ -69,6 +69,8 @@ main() {
     docker run --rm -it \
         -v "$workspace_mount" \
         -v "$HOME/.pi/agent:/root/.pi/agent" \
+        -v "$HOME/applications:/mnt/applications:ro" \
+        -v "$HOME/Documents/github:/mnt/github:ro" \
         "$image"
 }
 
