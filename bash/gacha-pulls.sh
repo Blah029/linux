@@ -56,9 +56,9 @@ parse_arguments() {
 
 copy_endfield() {
     log_path="$game_path/$game/drive_c/users/$USER/AppData/LocalLow/Gryphline/Endfield/sdklogs/HGWebview.log"
-    if [ -f "$log_path" ]; then
+    if [[ -f "$log_path" ]]; then
         token=$(grep -oP 'https://[^\s"]+?\.gryphline\.com/[^\s"]+?token[^\s"]+?server[^\s"]+' "$log_path" | head -n1)
-        if [ -n "$token" ]; then
+        if [[ -n "$token" ]]; then
             if command -v xclip >/dev/null 2>&1; then
                 echo -n "$token" | xclip -selection clipboard
             else

@@ -44,7 +44,7 @@ parse_arguments() {
 
 
 main() {
-    if [ $undo_flag == false ]; then
+    if [[ $undo_flag == false ]]; then
         echo -e "\nEnabling CPU power monitoring..."
         sudo chmod o+r /sys/class/powercap/intel-rapl\:0/energy_uj
         echo -e "\nSetting GPU performace level to high..."
