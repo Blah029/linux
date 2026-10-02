@@ -52,16 +52,29 @@ parse_arguments() {
 main() {
     image="pi-sandbox"
     docker_directory="$HOME/applications/pi-coding-agent"
-    build_context=(
-        "$HOME/Documents/github/linux/docker/pi-coding-agent/Dockerfile.pi"
-        "$HOME/Documents/github/linux/config/vim/.vimrc"
+    docker_file="$HOME/Documents/github/linux/docker/pi-coding-agent/Dockerfile.pi"
+    docker_args=(
+        --rm
+        -it
     )
-
+    core_mounts=(
+        -v "$HOME/.pi/agent:/root/.pi/agent"
+        -v "$HOME/.vimrc:/root/.vimrc:ro"
+    )
+    supplementary_mounts=(
+        -v "$HOME/applications:/mnt/applications:ro"
+        -v "$HOME/Documents/github:/mnt/github:ro"
+    )
+    situational_mounts=(
+        -v "/mnt/games/SteamLibrary/steamapps/common/No Man's Sky:/mnt/no-mans-sky:ro"
+        -v "/mnt/games/SteamLibrary:/mnt/steamlibrary:ro"
+    )
+    
     # Set read/write permissions
     if [[ $write_flag == true ]]; then
-        workspace_mount="$PWD:/workspace"
+        core_mounts+=(-v "$PWD:/workspace")
     else
-        workspace_mount="$PWD:/workspace:ro"
+        core_mounts+=(-v "$PWD:/workspace:ro")
     fi
     # Rebuild image on flag
     if [[ $build_flag == true ]]; then
@@ -74,11 +87,10 @@ main() {
     fi
 
     # Run pi
-    docker run --rm -it \
-        -v "$workspace_mount" \
-        -v "$HOME/.pi/agent:/root/.pi/agent" \
-        -v "$HOME/applications:/mnt/applications:ro" \
-        -v "$HOME/Documents/github:/mnt/github:ro" \
+    docker run "${docker_args[@]}" \
+        "${core_mounts[@]}" \
+        "${supplementary_mounts[@]}" \
+        "${situational_mounts[@]}" \
         "$image"
 }
 
