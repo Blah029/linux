@@ -38,6 +38,7 @@ parse_arguments() {
 
 }
 
+
 docker_containers=(
     anythingllm
     searxng
@@ -65,6 +66,8 @@ main() {
     llama update
     echo -e "\n[Pi Coding Agent]"
     sudo npm --prefix /usr/local install -g --ignore-scripts --min-release-age=0 @earendil-works/pi-coding-agent
+    echo -e "\n[Pi Coding Agent Sandbox]"
+    pi-docker.sh -b -f
 }
 
 
