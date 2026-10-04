@@ -8,10 +8,11 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options]
 
 Options:
     -h, --help                      Print help and exit
+    -w, --write                     Mount the working directory with write permissions
     -b, --build                     Rebuild the pi-sandbox image
     -f, --force                     Force rebuild without build cache
-    -w, --write                     Mount the working directory with write permissions
-    -c, --checkpoint <checkpoint>   Run pi-sandbox:<checkpoint> image created from commit. Default none
+    -t, --tag <tag>                 Run pi-sandbox:<tag> image. Default ""
+    -d, --dockerfile <name>         Name of docker file. Default Dockerfile.pi
 EOF
     exit
 }
@@ -26,20 +27,25 @@ die() {
 
 parse_arguments() {
     # Defaults
+    write_flag=false
     build_flag=false
     force_flag=false
-    write_flag=false
-    checkpoint=false
+    tag=""
+    dockerfile="Dockerfile.pi"
     
     # Parse flags and named parameters
     while :; do
         case "${1-}" in
             -h | --help) usage;;
+            -w | --write) write_flag=true;;
             -b | --build) build_flag=true;;
             -f | --force) force_flag=true;;
-            -w | --write) write_flag=true;;
-            -c | --checkpoint)
-                checkpoint="${2-}"
+            -t | --tag)
+                tag=":${2-}"
+                shift
+                ;;
+            -d | --dockerfile)
+                dockerfile="${2-}"
                 shift
                 ;;
             # Exit if an unexpected option is passed
@@ -60,23 +66,22 @@ parse_arguments() {
 
 rebuild() {
     build_args=(
-        -t "${image}"
-        -f "${docker_directory}/Dockerfile.pi"
+        -t "${image}${tag}"
+        -f "${docker_directory}/${dockerfile}"
     )
     if [[ ${force_flag} == true ]]; then
-        build_args+=(
-            --no-cache
-        )
+        build_args+=( --no-cache)
     else
         pi_version="$(curl -fsSL 'https://registry.npmjs.org/@earendil-works%2Fpi-coding-agent' \
             | grep -o '"latest"[[:space:]]*:[[:space:]]*"[^"]*"' | head -n1 | cut -d'"' -f4)"
         [[ -n "${pi_version}" ]] || die "Could not determine latest pi-coding-agent version"
-        build_args+=(
-            --pull
-            --build-arg "PI_VERSION=${pi_version}"
-        )
+        build_args+=(--build-arg "PI_VERSION=${pi_version}")
+        if [[ "${tag}" == "" ]]; then
+            build_args+=(--pull)
+        fi
     fi
     echo "Updating build context"
+    rm "${docker_directory}"/*
     for build_file in "${build_context[@]}"; do(
         cp "${build_file}" "${docker_directory}/"
     ); done
@@ -91,14 +96,14 @@ main() {
     image="pi-sandbox"
     docker_directory="$HOME/applications/pi-coding-agent"
     build_context=(
-        "$HOME/Documents/github/linux/docker/pi-coding-agent/Dockerfile.pi"
+        "$HOME/Documents/github/linux/docker/pi-coding-agent/${dockerfile}"
     )
     docker_args=(
         --rm
         -it
     )
     core_mounts=(
-        -v "$HOME/.pi/agent:/root/.pi/agent"
+        -v "$HOME/Documents/github/linux/docker/pi-coding-agent/AGENTS.md:/root/.pi/agent/AGENTS.md"
         -v "$HOME/.vimrc:/root/.vimrc:ro"
     )
     supplementary_mounts=(
@@ -110,6 +115,10 @@ main() {
         -v "/mnt/games/SteamLibrary:/mnt/steamlibrary:ro"
     )
     
+    # Mount Pi configuration
+    for item in "$HOME/.pi/agent"/*; do 
+        core_mounts+=(-v "$HOME/.pi/agent/${item##*/}:/root/.pi/agent/${item##*/}")
+    done
     # Set read/write permissions
     if [[ ${write_flag} == true ]]; then
         core_mounts+=(-v "$PWD:/workspace")
@@ -120,12 +129,12 @@ main() {
     if [[ ${build_flag} == true ]]; then
         rebuild
     fi
-    # Check checkpoint
-    if [[ "${checkpoint}" != false ]]; then
-        if docker image inspect "pi-sandbox:${checkpoint}" >/dev/null 2>&1; then
-            image="pi-sandbox:${checkpoint}"
+    # Check tag
+    if [[ "${tag}" != "" ]]; then
+        if docker image inspect "pi-sandbox${tag}" >/dev/null 2>&1; then
+            image="pi-sandbox${tag}"
         else
-            die "Docker image pi-sandbox has no ${checkpoint} checkpoint"
+            die "Docker image pi-sandbox has no ${tag} checkpoint"
         fi
     fi
             

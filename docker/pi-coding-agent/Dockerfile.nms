@@ -1,0 +1,39 @@
+FROM fedora:44
+
+# Pi coding agent
+FROM pi-sandbox:latest
+
+# Wine
+RUN dnf install -y wine curl \
+    && dnf clean all
+
+# Dotnet
+ENV DOTNET_ROOT=/root/.dotnet \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
+    PATH=/root/.dotnet:${PATH}
+RUN curl -fsSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh \
+    && bash /tmp/dotnet-install.sh \
+        --runtime dotnet --channel 8.0 \
+        --install-dir /opt/dotnet \
+        --no-path \
+    && rm /tmp/dotnet-install.sh \
+    && ln -s /opt/dotnet /root/.dotnet
+
+# LLVM
+ARG LLVM_MINGW=20260908
+RUN curl -fsSL "https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_MINGW}/llvm-mingw-${LLVM_MINGW}-ucrt-ubuntu-22.04-x86_64.tar.xz" \
+    | tar -xJ -C /opt \
+    && if [ ! -d /opt/llvm-mingw ]; then mv /opt/llvm-mingw* /opt/llvm-mingw; fi
+
+# MinHook
+ARG MINHOOK=1.3.4
+RUN curl -fsSL "https://github.com/TsudaKageyu/minhook/archive/refs/tags/v${MINHOOK}.tar.gz" \
+    | tar -xz -C /opt \
+    && if [ ! -d /opt/minhook ]; then mv /opt/minhook* /opt/minhook; fi
+
+# Environment variables
+ENV NMS_PATH=/mnt/no-mans-sky \
+    NMS_STEAM_LIB=/mnt/steamlibrary
+
+WORKDIR /workspace
+ENTRYPOINT ["pi"]
