@@ -2,6 +2,8 @@
 
 - Pi Coding Agent is running in a Docker container
 - Changes outside /workspace will not persist
+- Report equivalent dockerfile commands for any environment changes
+- Leave working tree unstaged and uncommitted
 - Make sure to use available tools
 
 ## Read-only mode
@@ -20,8 +22,3 @@
 - -v "~/Documents/github:/mnt/github:ro"
 - -v "~/applications:/mnt/applications:ro"
 
-## Dependencies
-
-- Download packages using package manager
-- Download other dependecies to /opt and use symlinks
-- Report all dependency downloads to user

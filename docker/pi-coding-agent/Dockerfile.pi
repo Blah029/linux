@@ -4,6 +4,7 @@ ARG PI_VERSION
 RUN dnf install -y bash ca-certificates git nodejs npm ripgrep vim \
     && dnf clean all
 RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@"${PI_VERSION}"
+RUN git config --global --add safe.directory /workspace
 
 WORKDIR /workspace
 ENTRYPOINT ["pi"]
