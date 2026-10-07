@@ -1,10 +1,17 @@
 # AGENTS.md
 
+## Environment
+
 - Pi Coding Agent is running in a Docker container
 - Changes outside /workspace will not persist
-- Report equivalent dockerfile commands for any environment changes
+- Report any environment changes and provide equivalent dockerfile commands
 - Leave working tree unstaged and uncommitted
-- Make sure to use available tools
+- Use available tools
+
+## Tone
+
+- Exact, consistent terms
+- No idioms
 
 ## Read-only mode
 

@@ -113,6 +113,7 @@ main() {
     situational_mounts=(
         -v "/mnt/games/SteamLibrary/steamapps/common/No Man's Sky:/mnt/no-mans-sky:ro"
         -v "/mnt/games/SteamLibrary:/mnt/steamlibrary:ro"
+        -v "$HOME/.venvs/python312:/mnt/venvs/python312:ro"
     )
     
     # Mount Pi configuration
