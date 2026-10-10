@@ -68,6 +68,8 @@ main() {
     sudo npm --prefix /usr/local install -g --ignore-scripts --min-release-age=0 @earendil-works/pi-coding-agent
     echo -e "\n[Pi Coding Agent Sandbox]"
     pi-docker.sh -b -f
+    echo -e "\n[ArtCraft apps]"
+    update-artcraft.sh -y
 }
 
 
