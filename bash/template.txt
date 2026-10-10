@@ -51,7 +51,6 @@ parse_arguments() {
     # Check for no. of positional parameters
     [[ ${#args[@]} -lt 1 ]] && die "Missing positional parameters. Given "${#args[@]}", expected 1"
     [[ ${#args[@]} -gt 1 ]] && die "Too many positional parameters. Given "${#args[@]}", expected 1"
-
 }
 
 
