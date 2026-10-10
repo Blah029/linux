@@ -36,7 +36,7 @@ parse_arguments() {
     verbose_flag=false
     all_flag=false
     command_source="huggingface"
-    model="qwen-27b-g-fast"
+    model="qwen-27b-s-long"
     ctxpact_model="${model}"
     
     # Parse flags and named parameters

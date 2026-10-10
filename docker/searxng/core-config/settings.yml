@@ -15,15 +15,29 @@ server:
 
 engines:
 
-  # General
+  # General - enabled
+  - name: wiby
+    disabled: false
+  - name: openlibrary
+    disabled: false
   - name: mozhi
     disabled: false
   - name: duckduckgo
-    disabled: true
-  - name: mojeek
     disabled: false
-  - name: startpage
-    disabled: true
+  - name: yahoo
+    disabled: false
+  - name: wikibooks
+    disabled: false
+  - name: wikiquote
+    disabled: false
+  - name: wikisource
+    disabled: false
+  - name: wikispecies
+    disabled: false
+  - name: wikiversity
+    disabled: false
+  - name: wikivoyage
+    disabled: false
   - name: ayo
     disabled: false
   - name: boardreader
@@ -34,81 +48,59 @@ engines:
     disabled: false
   - name: duckduckgo web
     disabled: false
+  - name: encyclosearch
+    disabled: false
+  - name: fynd
+    disabled: false
+  - name: gabanza
+    disabled: false
   - name: resulthunter
     disabled: false
   - name: tineye
     disabled: false
+  - name: tusksearch
+    disabled: false
   - name: yandex
     disabled: false
+  - name: yep
+    disabled: false
+
+  # General - capcha
+  - name: qwant
+  - name: gmx
+
+  # General - access denied
+  - name: searchmysite
+  - name: google
+  - name: fastbot
+  - name: fireball
+  - name: privacywall
+  - name: zapmeta
+ 
+  # General - timeout
+  - name: mwmbl
+  - name: vuhuv
+  - name: wolframalpha
+
+  # General - slow
+  - name: yacy
+
+  # General - bad results
+  - name: bing
+
+  # General - non-english
+  - name: seznam
+  - name: naver
+  - name: searchch
+  - name: bpb
+  - name: rloado
+  - name: tagesschau
+  - name: abcnyheter
+  - name: 360search
+  - name: baidu
+  - name: quark
+  - name: sogou
 
   # Imgaes
-  - name: flaticon
-    disabled: false
-  - name: material icons
-    disabled: false
-  - name: selfhst icons
-    disabled: false
-  - name: uxwing
-    disabled: false
-  - name: mojeek images
-    disabled: false
-  - name: startpage images
-    disabled: true
-  - name: 500px
-    disabled: false
-  - name: adobe stock
-    disabled: false
-  - name: artstation
-    disabled: false
-  - name: frinkiac
-    disabled: false
-  - name: giphy
-    disabled: false
-  - name: imgur
-    disabled: false
-  - name: ipernity
-    disabled: false
-  - name: library of congress
-    disabled: false
-  - name: magnific
-    disabled: false
-  - name: public domain image archive
-    disabled: false
-  - name: resulthunter images
-    disabled: false
-  - name: shopify stock
-    disabled: false
-  - name: stocksnap
-    disabled: false
-  - name: tusksearch images
-    disabled: false
-  - name: yandex images
-    disabled: false
 
   # Videos
-  - name: qwant videos
-    disabled: false
-  - name: adobe stock video
-    disabled: false
-  - name: bilibili
-    disabled: false
-  - name: bitchute
-    disabled: false
-  - name: findfiles videos
-    disabled: false
-  - name: google play movies
-    disabled: false
-  - name: media.ccc.de
-    disabled: false
-  - name: odysee
-    disabled: false
-  - name: peertube
-    disabled: false
-  - name: pixabay videos
-    disabled: false
-  - name: tusksearch videos
-    disabled: false
-  - name: vimeo
-    disabled: true
-  - name: vuhuv videos
-    disabled: false
