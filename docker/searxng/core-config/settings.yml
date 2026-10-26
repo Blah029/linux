@@ -48,10 +48,6 @@ engines:
     disabled: false
   - name: duckduckgo web
     disabled: false
-  - name: encyclosearch
-    disabled: false
-  - name: fynd
-    disabled: false
   - name: gabanza
     disabled: false
   - name: resulthunter
@@ -83,10 +79,12 @@ engines:
   - name: wolframalpha
 
   # General - slow
+  - name: encyclosearch
   - name: yacy
 
   # General - bad results
   - name: bing
+  - name: fynd
 
   # General - non-english
   - name: seznam
