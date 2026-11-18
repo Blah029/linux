@@ -20,7 +20,7 @@ Options:
                                 of the previous month
     -s, --start-hour <hour>     Filter by starting hour. Default 7
     -e, --end-hour <hour>       Filter by ending hour. Default 23
-    -j, --json-raw <path>       Path to vnstat output. Default ~/temp/vnstat_raw.json
+    -j, --json-raw <path>       Path to vnstat output. Default /tmp/vnstat_raw.json
 EOF
     exit
 }
@@ -41,7 +41,7 @@ parse_arguments() {
     day=24
     start_hour=7
     end_hour=23
-    json_raw="$HOME/temp/vnstat_raw.json"
+    json_raw="/tmp/vnstat_raw.json"
 
     # Parse flags and named parameters
     while :; do

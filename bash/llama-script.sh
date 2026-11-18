@@ -16,8 +16,10 @@ Options:
                                     huggingface     - Run HugginFace realease installed from llama.app
     -m, --model <model>         Large language model. Default qwen-27-r
                                     gemma-26b       - Gemma 4 26B A4B
-                                    qwen-27b-g-fast - ISTA-DASLab Qwen3.8 27B GSQ RCO GGUF IQ3_XXS 
-                                    qwen-27b-g-long - ISTA-DASLab Qwen3.8 27B GSQ RCO GGUF IQ3_S
+                                    qwen-27b-g-fast - ISTA-DASLab Qwen3.8 27B GSQ RCO IQ3_XXS
+                                    qwen-27b-g-long - ISTA-DASLab Qwen3.8 27B GSQ RCO IQ3_S
+                                    qwen-27b-s-fast - ukisai Swift 1.5 Qwen3.8 27B GSQ RCO IQ3_XXS
+                                    qwen-27b-s-long - ukisai Swift 1.5 Qwen3.8 27B GSQ RCO IQ3_S
 EOF
     exit
 }
@@ -111,7 +113,7 @@ autoload() {
     esac
 
     # Model
-    model_dir="$HOME/applications/llama-cpp/models/"
+    model_dir="$HOME/applications/llama-cpp/models"
     gemma_args=(
         -c 131027
         -ncmoe 7
@@ -189,19 +191,6 @@ autoload() {
 
 
 main() {
-    # Setup comomon parameters
-    # Min. batch size for full gpu utilisation
-    #   -b 256
-    #   -ub 128
-    # Min. batch size for parsing large pdfs as images
-    #   -b 1024
-    #   -ub 512
-    # Max. batch size for parsing large pdfs as images 
-    #   -b 2048
-    #   -ub 1024
-    # Max. batch size for parsing large pfds as text
-    #   -b 8192
-    #   -ub 4096
     command_args=(
         -t 8
         -b 1024

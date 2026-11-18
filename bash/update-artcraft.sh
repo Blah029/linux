@@ -64,7 +64,7 @@ main() {
         pdfcraft
     )
     dnf_args=()
-    mkdir -p "$HOME/temp/artcraft"
+    mkdir -p "/tmp/artcraft"
     for app in ${apps[@]}; do
         # Check versions
         installed_version=$(rpm -q "${app}")
@@ -78,7 +78,7 @@ main() {
             echo "Latest ${app} version ${installed_version} already installed"
         else
             download_url="https://github.com/storytold/${app}/releases/download/${tag}/${app}-${latest_version}-linux-x86_64.${packaging_format}"
-            file_path="$HOME/temp/artcraft/${app}-${latest_version}-linux-x86_64.${packaging_format}"
+            file_path="/tmp/artcraft/${app}-${latest_version}-linux-x86_64.${packaging_format}"
             echo "Downloading ${app} v${latest_version} ${packaging_format}"
             curl -fsSL -o "${file_path}" "${download_url}"
             if [[ "${y_flag}" == true ]]; then
