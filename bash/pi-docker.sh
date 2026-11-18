@@ -85,7 +85,7 @@ rebuild() {
     for build_file in "${build_context[@]}"; do(
         cp "${build_file}" "${docker_directory}/"
     ); done
-    echo -e "Building image ${image} ${pi_version}\n"
+    echo -e "Building image ${image}${tag} ${pi_version}\n"
     docker build "${build_args[@]}" "${docker_directory}"
     echo "Build complete"
     exit
@@ -99,8 +99,9 @@ main() {
         "$HOME/Documents/github/linux/docker/pi-coding-agent/${dockerfile}"
     )
     docker_args=(
-        --rm
         -it
+        --name "pi-docker"
+        --rm
     )
     core_mounts=(
         -v "$HOME/Documents/github/linux/docker/pi-coding-agent/AGENTS.md:/root/.pi/agent/AGENTS.md"

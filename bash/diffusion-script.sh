@@ -77,63 +77,41 @@ kill_processes(){
 }
 
 
-check_files() {
-    # Exit if any of the given files is missing
-    local missing=()
-    local f
-    for f in "$@"; do
-        [[ -f "${f}" ]] || missing+=("${f}")
-    done
-    if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "Missing model files:" >&2
-        printf '    %s\n' "${missing[@]}" >&2
-        exit 1
-    fi
-}
-
-
 autoload() {
-    # command
+    # Command
     case ${command_source} in
         "github") command="$HOME/applications/stable-diffusion-cpp/binary/vulkan/sd-server";;
     esac
 
     # Model
     model_dir="$HOME/applications/stable-diffusion-cpp/models/"
-    case "${model}" in
-        "qwen-image")
-            diffusion_model="${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
-            llm_model="${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Abliterated-Uncensored-Q8_0.gguf"
-            llm_vision_model="${model_dir}/qwen/atomicchat/mmproj-Qwen-Image-2.1-Turbo-Abliterated-Uncensored-BF16.gguf"
-            ;;
-        "qwen-image-std")
-            diffusion_model="${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
-            llm_model="${model_dir}/qwen/qwen/Qwen3VL-8B-Instruct-Q8_0.gguf"
-            llm_vision_model="${model_dir}/qwen/qwen/mmproj-Qwen3VL-8B-Instruct-F16.gguf"
-            ;;
-        *) die "Incorrect model name: ${model}";;
-    esac
-    vae_model="${model_dir}/qwen/comfy-org/qwen_image_2.1_vae_bf16.safetensors"
-    check_files "${diffusion_model}" "${llm_model}" "${llm_vision_model}" "${vae_model}"
-
-    # Turbo 8-step schedule from the checkpoint (CFG 1, euler)
-    command_args+=(
-        --diffusion-model "${diffusion_model}"
-        --llm "${llm_model}"
-        --llm_vision "${llm_vision_model}"
-        --vae "${vae_model}"
+    qwen_args=(
         --steps 8
         --cfg-scale 1.0
         --sampling-method euler
         --sigmas 1.0,0.978453,0.95418,0.926626,0.89508,0.845148,0.704534,0.414568,0.0
     )
+    case "${model}" in
+        "qwen-image") command_args+=(
+            ${qwen_args[@]}
+            --diffusion-model "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
+            --llm "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Abliterated-Uncensored-Q8_0.gguf"
+            --llm_vision "${model_dir}/qwen/atomicchat/mmproj-Qwen-Image-2.1-Turbo-Abliterated-Uncensored-BF16.gguf"
+            --vae "${model_dir}/qwen/comfy-org/qwen_image_2.1_vae_bf16.safetensors"
+        );;
+        "qwen-image-std") command_args+=(
+            ${qwen_args[@]}
+            --diffusion-model "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
+            --llm "${model_dir}/qwen/qwen/Qwen3VL-8B-Instruct-Q8_0.gguf"
+            --llm_vision "${model_dir}/qwen/qwen/mmproj-Qwen3VL-8B-Instruct-F16.gguf"
+            --vae "${model_dir}/qwen/comfy-org/qwen_image_2.1_vae_bf16.safetensors"
+        );;
+        *) die "Incorrect model name: ${model}";;
+    esac
 }
 
 
 main() {
-    # Setup common parameters
-    # Denoiser + VAE in VRAM (~8.1 GB), encoder in system RAM via --offload-to-cpu (~8.7 GB)
-    # 1024x1024 keeps the prefix KV cache (~7 GiB) inside the 16 GB VRAM budget
     command_args=(
         -t 8
         -W 1024

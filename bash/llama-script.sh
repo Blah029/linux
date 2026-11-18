@@ -106,7 +106,7 @@ tools() {
 
 
 autoload() {
-    # command
+    # Command
     case ${command_source} in
         "huggingface") command="llama serve";;
         "github") command="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
