@@ -42,6 +42,7 @@ parse_arguments() {
             -f | --force) force_flag=true;;
             -t | --tag)
                 tag=":${2-}"
+                dockerfile="Dockerfile.${tag#:}"
                 shift
                 ;;
             -d | --dockerfile)

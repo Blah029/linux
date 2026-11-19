@@ -13,6 +13,9 @@ server:
   limiter: false
   image_proxy: true
 
+ui:
+  query_in_title: true
+
 engines:
 
   # General - enabled

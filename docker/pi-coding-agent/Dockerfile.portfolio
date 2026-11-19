@@ -1,0 +1,14 @@
+# Pi coding agent
+FROM pi-sandbox:latest
+# Node 22.23.5 (Astro 7.4.12 dependency)
+RUN curl -s -o /tmp/node.tar.xz https://nodejs.org/dist/v22.23.5/node-v22.23.5-linux-x64.tar.xz \
+    && tar -xf /tmp/node.tar.xz -C /opt/ \
+    && ln -sf /opt/node-v22.23.5-linux-x64/bin/node /usr/local/bin/node \
+    && ln -sf /opt/node-v22.23.5-linux-x64/bin/npm /usr/local/bin/npm \
+    && ln -sf /opt/node-v22.23.5-linux-x64/bin/npx /usr/local/bin/npx \
+    && rm /tmp/node.tar.xz
+# Fonts
+RUN dnf install -y fontconfig dejavu-sans-fonts dejavu-sans-mono-fonts
+
+WORKDIR /workspace
+ENTRYPOINT ["pi"]

@@ -11,6 +11,7 @@ Options:
     --diffusion-help            Print stable-diffusion.cpp help and exit
     -v, --verbose               Enable verbose output
     -r, --restart               Kill existing stable-diffusion.cpp processes, llama.cpp processes, and tools
+    -u, --update                Download latest GitHub Vulkan release
     -s, --source <repository>   Binary source. Default github
                                     github          - Run downloaded GitHub Vulkan release
     -m, --model <model>         Image model. Default qwen-image
@@ -33,6 +34,7 @@ parse_arguments() {
     diffusion_help_flag=false
     verbose_flag=false
     restart_flag=false
+    update_flag=false
     command_source="github"
     model="qwen-image"
 
@@ -43,6 +45,7 @@ parse_arguments() {
             --diffusion-help) diffusion_help_flag=true;;
             -v | --verbose) verbose_flag=true;;
             -r | --restart) restart_flag=true;;
+            -u | --update) update_flag=true;;
             -s | --source)
                 command_source="${2-}"
                 shift
@@ -111,6 +114,24 @@ autoload() {
 }
 
 
+update() {
+    mkdir -p "/tmp/stable-diffusion-cpp"
+    latest_url="$(curl -fsSL -o /dev/null -w '%{url_effective}' "https://github.com/leejet/stable-diffusion.cpp/releases/latest")"
+    tag="${latest_url##*/}"
+    latest_version="${tag##*-}"
+    download_url="https://github.com/leejet/stable-diffusion.cpp/releases/download/${tag}/sd-master-${latest_version}-bin-Linux-Ubuntu-26.04-x86_64-vulkan.zip"
+    download_path="/tmp/stable-diffusion-cpp/sd-master-${latest_version}-bin-Linux-Ubuntu-26.04-x86_64-vulkan.zip"
+    install_path="$HOME/applications/stable-diffusion-cpp/binary/vulkan"
+    echo "Downloading stable-diffusion.cpp ${tag}"
+    curl -fsSL -o "${download_path}" "${download_url}"
+    echo "Removing old files at ${install_path}"
+    rm "${install_path}/"*
+    echo "Unzipping"
+    unzip "${download_path}" -d "${install_path}"
+    echo "Done":
+}
+
+
 main() {
     command_args=(
         -t 8
@@ -134,8 +155,12 @@ main() {
     if [[ $restart_flag == true ]]; then
         kill_processes
     fi
-    # Launch stable-diffusion.cpp
-    ${command} ${command_args[@]}
+    if [[ $update_flag == true ]]; then
+        update
+    else
+        # Launch stable-diffusion.cpp
+        ${command} ${command_args[@]}
+    fi
 }
 
 

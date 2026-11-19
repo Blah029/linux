@@ -12,7 +12,8 @@ Options:
     -v, --verbose               Enable verbose output
     -a, --all                   Run all supporting tools
     -s, --source <repository>   Binary source. Default github
-                                    github          - Run downloaded GitHub Vulkan release
+                                    github-vulkan   - Run downloaded GitHub Vulkan release
+                                    github-rocm     - Run downloaded GitHub ROCm release
                                     huggingface     - Run HugginFace realease installed from llama.app
     -m, --model <model>         Large language model. Default qwen-27-r
                                     gemma-26b       - Gemma 4 26B A4B
@@ -108,8 +109,9 @@ tools() {
 autoload() {
     # Command
     case ${command_source} in
+        "github-vulkan") command="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
+        "github-rocm") command="$HOME/applications/llama-cpp/binary/rocm/llama-server";;
         "huggingface") command="llama serve";;
-        "github") command="$HOME/applications/llama-cpp/binary/vulkan/llama-server";;
     esac
 
     # Model
