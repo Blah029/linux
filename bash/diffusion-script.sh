@@ -87,8 +87,12 @@ autoload() {
     esac
 
     # Model
-    model_dir="$HOME/applications/stable-diffusion-cpp/models/"
+    model_dir="$HOME/applications/stable-diffusion-cpp/models"
     qwen_args=(
+        --model-dir "${model_dir}"
+        --flash-attn off,diffusion=on
+        -H 1024
+        -W 1024
         --steps 8
         --cfg-scale 1.0
         --sampling-method euler
@@ -97,17 +101,10 @@ autoload() {
     case "${model}" in
         "qwen-image") command_args+=(
             ${qwen_args[@]}
-            --diffusion-model "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
-            --llm "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Abliterated-Uncensored-Q8_0.gguf"
-            --llm_vision "${model_dir}/qwen/atomicchat/mmproj-Qwen-Image-2.1-Turbo-Abliterated-Uncensored-BF16.gguf"
-            --vae "${model_dir}/qwen/comfy-org/qwen_image_2.1_vae_bf16.safetensors"
-        );;
-        "qwen-image-std") command_args+=(
-            ${qwen_args[@]}
-            --diffusion-model "${model_dir}/qwen/atomicchat/Qwen-Image-2.1-Turbo-Q8_0.gguf"
-            --llm "${model_dir}/qwen/qwen/Qwen3VL-8B-Instruct-Q8_0.gguf"
-            --llm_vision "${model_dir}/qwen/qwen/mmproj-Qwen3VL-8B-Instruct-F16.gguf"
-            --vae "${model_dir}/qwen/comfy-org/qwen_image_2.1_vae_bf16.safetensors"
+            --diffusion-model "${model_dir}/diffusion_models/Qwen-Image-2.1-Turbo-Q8_0.gguf"
+            --llm "${model_dir}/text_encoders/Qwen-Image-2.1-Turbo-Abliterated-Uncensored-Q8_0.gguf"
+            --llm_vision "${model_dir}/text_encoders/vision/mmproj-Qwen-Image-2.1-Turbo-Abliterated-Uncensored-BF16.gguf"
+            --vae "${model_dir}/vae/qwen_image_2.1_vae_bf16.safetensors"
         );;
         *) die "Incorrect model name: ${model}";;
     esac
@@ -134,10 +131,8 @@ update() {
 
 main() {
     command_args=(
+        --auto-fit off
         -t 8
-        -W 1024
-        -H 1024
-        --diffusion-fa
         --listen-ip 0.0.0.0
         --listen-port 8083
     )
